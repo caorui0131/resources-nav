@@ -1,9 +1,9 @@
-<templates>
-    <div></div>
-</templates>
+<template>
+    <div>footer</div>
+</template>
 <script>
     export default{
         // 组件名称，加载组件时引用的值
-        name:'nav-footer'，
+        name:'nav-footer',
     }
 </script>

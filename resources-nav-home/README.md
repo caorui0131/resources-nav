@@ -49,7 +49,7 @@ npm run build
 ```
 npm run lint
 ```
-
+ 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
@@ -57,9 +57,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### 前端
 
-1. [Umi](https://umijs.org/zh-CN) 插件化的企业级前端应用框架
-2. [Vue](https://cn.vuejs.org/) 前端框架
-
+1. [Vue](https://cn.vuejs.org/) 前端框架
+2. [Element UI](https://element.eleme.cn/#/zh-CN) 组件库
+3. [Sass](https://www.sass.hk/) 预编译器
+ 
 
 
 ### 后端
@@ -73,6 +74,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
   * 查看版本号：vue --version
 * 创建一个基于webpack模板的新项目
   * vue create resources-nav-home
+  * 选择 vue2.x 默认安装
 * 启动项目
   * cd resources-nav-home
   * npm run serve
@@ -81,6 +83,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 * 安装依赖 axios、vue-router、vuex
 * 安装调试工具 [vue-devtools](https://github.com/vuejs/devtools/) 报错则下载[vue-devtools v5.1.1](https://codeload.github.com/vuejs/devtools/zip/refs/tags/v5.1.1)
 * [VUE 配置vue-devtools调试工具](http://www.imooc.com/article/294527)
+* 安装插件
+  * 懒加载、element-ui组件库、sass预编译器、轮播图、前后端交互用cookie识别用户：npm i vue-lazyload element-ui node-sass sass-loader vue-awesome-swiper vue-axios vue-cookie --save-dev
+  * 把axios挂载在vue实例里，简化导入组件的步骤：npm i vue-axios ,--save-dev：保存到package.json
+  * 不知道安装什么插件就去 npm github上找最火的
 
 
 
