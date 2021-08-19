@@ -11,8 +11,6 @@
 
 ## 快速开始
 
-**请保证 Node.js 版本 > 10** ⚠️
-
 1. 下载项目到本地
 
    ```bash
@@ -81,3 +79,29 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 * 使用图形化界面
   * vue ui
 * 安装依赖 axios、vue-router、vuex
+* 安装调试工具 [vue-devtools](https://github.com/vuejs/devtools/) 报错则下载[vue-devtools v5.1.1](https://codeload.github.com/vuejs/devtools/zip/refs/tags/v5.1.1)
+* [VUE 配置vue-devtools调试工具](http://www.imooc.com/article/294527)
+
+
+
+
+## 目录结构
+
+```
+.
+├── README.md 项目说明
+├── package.json 包管理文件
+├── public 公共目录
+│   └── 
+├── src 前端项目主目录
+│   ├── assets 资源文件
+│   ├── components 组件
+│   ├── api 接口文档
+│   │   └── index.js整个项目的api请求
+│   ├── storage 数据存储的工具箱
+│   ├── pages 页面
+│   ├── 
+│   ├── router.js 路由
+│   └── util 工具,公共的方法
+└── 
+```
