@@ -80,3 +80,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
   * npm run serve
 * 使用图形化界面
   * vue ui
+* 安装依赖 axios、vue-router、vuex
+* 
