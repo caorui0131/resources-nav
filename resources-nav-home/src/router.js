@@ -9,6 +9,8 @@ import Order from './pages/order';
 import OrderConfirm from './pages/orderConfirm';
 import OrderList from './pages/orderList';
 import OrderPay from './pages/orderPay';
+import AliPay from './pages/alipay';
+
 
 // 加载插件的固定语法：同vue加载Router插件
 Vue.use(Router);
@@ -55,17 +57,21 @@ export default new Router ({
             component: Order,
             children:[
                 {
-                    path:'/confirm', 
+                    path:'confirm', 
                     name:'order-confirm', 
                     component: OrderConfirm,
                 },{
-                    path:'/list', 
+                    path:'list', 
                     name:'order-list', 
                     component: OrderList,
                 },{
-                    path:'/pay', 
+                    path:'pay', 
                     name:'order-pay', 
                     component: OrderPay,
+                },{
+                    path:'alipay', 
+                    name:'alipay', 
+                    component: AliPay,
                 }
             ]
         }
