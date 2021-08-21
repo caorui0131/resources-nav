@@ -101,7 +101,19 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 * 请求值、返回值统一处理
   * 在[axios](http://www.npmjs.com/package/axios)统一处理
     * 提供了公共机制，帮助其那段做请求拦截和返回值拦截
+    * get请求+params，post请求不加直接写
+    * 复合接口
 
+
+
+* 接口规范
+```
+{
+  status:0,
+  data;[],
+  msg:''
+}
+```
 
 ## 目录结构
 
