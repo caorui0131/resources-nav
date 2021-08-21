@@ -1,4 +1,4 @@
-// * 插件和组件：引用时插件在上组件在下
+// * 插件和组件：引用时插件在上组件在下，没有./会被认为是插件，去npm里面找
 // 插件
 import Vue from 'vue'
 import router from './router'
@@ -8,6 +8,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 // 组件
 import App from './App.vue'
+import env from './env'
 
 /**
  * 在发请求值时设置基础值,根据前端的跨域方式做调整(当前为接口代理) ,前端转发时可以切掉/api 
@@ -15,6 +16,8 @@ import App from './App.vue'
  */
 axios.defaults.baseURL='/api';
 axios.defaults.timeout=8000;
+// 根据环境变量获取不同的请求地址
+axios.defaults.baseURL=env.baseURL
 // 【重要】拦截。interceptors是拦截器
 // 对rps进行错误拦截
 axios.interceptors.response.use(function(response){
