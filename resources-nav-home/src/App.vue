@@ -20,7 +20,18 @@ export default {
     }
   },
   mounted(){
-
+    // 本地加载请求静态json文件的形式
+    this.axios.get('/mock/user/login.json').then((res)=>{
+      this.res=res;
+    })
+    // 通过easy-mock平台实现数据mock  https://easy-mock.com/login
+    this.axios.get('/user/login').then((res)=>{
+      this.res=res;
+    })
+    // 本地集成mockjs实现数据mock  https://github.com/nuysoft/Mock/wiki/Getting-Started
+    this.axios.get('/user/login').then((res)=>{
+      this.res=res;
+    })
   }
 }
 </script>

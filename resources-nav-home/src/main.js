@@ -8,8 +8,17 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 // 组件
 import App from './App.vue'
-import env from './env'
 
+// import env from './env'
+/**
+ * import是预编译加载：在编译的时候所引文件就会被加载进来 写在内存当中
+ * require在执行到的时候才会被加载
+ */
+// mock开关
+const mock=true;
+if(mock){
+  require('./mock/api')
+}
 /**
  * 在发请求值时设置基础值,根据前端的跨域方式做调整(当前为接口代理) ,前端转发时可以切掉/api 
  * /a/b:/api/a/b=>/a/b
@@ -17,7 +26,7 @@ import env from './env'
 axios.defaults.baseURL='/api';
 axios.defaults.timeout=8000;
 // 根据环境变量获取不同的请求地址
-axios.defaults.baseURL=env.baseURL
+// axios.defaults.baseURL=env.baseURL
 // 【重要】拦截。interceptors是拦截器
 // 对rps进行错误拦截
 axios.interceptors.response.use(function(response){

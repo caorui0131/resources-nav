@@ -87,6 +87,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
   * 懒加载、element-ui组件库、sass预编译器、轮播图、前后端交互用cookie识别用户：npm i vue-lazyload element-ui node-sass sass-loader vue-awesome-swiper vue-axios vue-cookie --save-dev
   * 把axios挂载在vue实例里，简化导入组件的步骤：npm i vue-axios ,--save-dev：保存到package.json
   * 不知道安装什么插件就去 npm github上找最火的
+* 若要进行mock就安装 mockjs
+  * npm i mockjs --save-dev
 
 
 
