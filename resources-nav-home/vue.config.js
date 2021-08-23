@@ -2,8 +2,8 @@
 module.exports={
     devServer:{
         host: 'localhost',
-        // port: 8080,
-        port: 50011,
+        port: 8008,
+        // port: 50011,
         // vue提供了一套代理的方案，通过proxy做接口拦截，也可以解决前后端跨域的问题
         proxy: {
             '/api':{

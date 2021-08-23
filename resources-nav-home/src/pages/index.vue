@@ -4,15 +4,7 @@
             <!-- <div class="el-aside-c"> -->
                 <el-aside>
                     <!-- <div class="el-aside-c"> -->
-                        
-                        
-                        <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
-                            <!-- <el-radio-button :label="false">展开</el-radio-button>
-                            <el-radio-button :label="true">收起</el-radio-button> -->
-                            <el-radio-button :label="false"><i class="el-icon-s-unfold"></i></el-radio-button>
-                            <el-radio-button :label="true"><i class="el-icon-s-fold"></i></el-radio-button>
-                        </el-radio-group>
-                        <el-menu default-active="1-4-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
+                        <el-menu default-active="1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
                             <el-submenu index="1">
                                 <template slot="title">
                                     <i class="el-icon-location"></i>
@@ -65,6 +57,12 @@
                                 <span slot="title">导航四</span>
                             </el-menu-item>
                         </el-menu>
+                        <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
+                            <!-- <el-radio-button :label="false">展开</el-radio-button>
+                            <el-radio-button :label="true">收起</el-radio-button> -->
+                            <el-radio-button :label="false"><i class="el-icon-s-unfold"></i></el-radio-button>
+                            <el-radio-button :label="true"><i class="el-icon-s-fold"></i></el-radio-button>
+                        </el-radio-group>
                     <!-- </div> -->
                 </el-aside>
             <!-- </div> -->
@@ -78,12 +76,14 @@
     </div>
 </template>
 <style lang="scss">
+// @import './assets/scss/reset.scss';
+// @import './assets/scss/config.scss';
 .container{
     padding-top: 60px!important;
 }
 .el-aside,.el-main{
     height: calc(100vh - 60px)!important;
-    overflow: auto!important;
+    overflow: hidden auto!important;
 }
 .el-aside{
     width:auto!important;
@@ -104,6 +104,32 @@
 .el-icon-s-unfold,.el-icon-s-fold{
     width: 18px!important;
     height: 18px!important;
+    &:hover{
+        // color: $colorA!important;
+        color:#409eff!important;
+        transition: all 0.2s;
+    }
+}
+
+.el-aside{
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+}
+.el-menu-vertical-demo{
+    flex: 1 1 0%;
+    overflow: hidden auto;
+}
+.el-radio-group{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    // height:40px;
+    overflow: hidden;
+    // box-sizing: border-box;
+}
+.el-radio-group .el-radio-button{
+    height:40px;
 }
 // .el-icon-s-unfold{
 //     width:50px;
@@ -115,6 +141,7 @@
 <script>
     import { Container } from 'element-ui'
     import NavFooter from './../components/NavFooter'
+    // import $ from 'jquery'
     export default{
         // 组件名称，加载组件时引用的值
         name:'index',
@@ -129,11 +156,13 @@
         methods: {
             handleOpen(key, keyPath) {
                 console.log(key, keyPath);
+                alert(0)
+                // $('el-radio-button :label="false"').hide();
             },
             handleClose(key, keyPath) {
                 console.log(key, keyPath);
-            }
+            },
         },
-        Container
+        Container,
     }
 </script>
