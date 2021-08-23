@@ -63,6 +63,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
   2. js框架 ，bootscript是css框架
   3. 适合做B端管理后台，不适合做C端门户网站
 3. [Sass](https://www.sass.hk/) 预编译器
+4. [swiper](https://www.swiper.com.cn/) 滑动插件
  
 [学习例子-高仿小米](http://mi.futurefe.com/#/index)
 
@@ -87,7 +88,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 * 安装调试工具 [vue-devtools](https://github.com/vuejs/devtools/) 报错则下载[vue-devtools v5.1.1](https://codeload.github.com/vuejs/devtools/zip/refs/tags/v5.1.1)
 * [VUE 配置vue-devtools调试工具](http://www.imooc.com/article/294527)
 * 安装插件
-  * 懒加载、element-ui组件库、sass预编译器、轮播图、前后端交互用cookie识别用户：npm i vue-lazyload element-ui node-sass sass-loader vue-awesome-swiper vue-axios vue-cookie --save-dev
+  * 懒加载、element-ui组件库、sass预编译器、swiper轮播图、前后端交互用cookie识别用户：npm i vue-lazyload element-ui node-sass sass-loader vue-awesome-swiper vue-axios vue-cookie --save-dev
   * 把axios挂载在vue实例里，简化导入组件的步骤：npm i vue-axios ,--save-dev：保存到package.json
   * 不知道安装什么插件就去 npm github上找最火的
 * 若要进行mock就安装 mockjs
@@ -96,6 +97,16 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
   * 安装框架 npm i element-ui
   * 安装按需加载 npm i  babel-plugin-component
   * 添加配置 .babelrc；凡是涉及到配置（项目以外）的地方都需要重启应服务 
+* 安装vuex
+  * 创建store文件夹及其中的文件
+* 使用vuex
+  1. 存储 this.$store.dispatch('saveUserName',XXX);
+  2. 传输 context.commit('saveUserName', XXX);
+  3. 读取 state.XXX = XXX;
+  4. 共享 this.$store.state.XXX
+  5. 当发生先取值再存值的情况时，使用computed属性，解决延迟问题（当变量读取的时候没有，之后一旦该变量发生变化 会重新计算一次）。
+    1. computed:{username(){return this.$store.state.XXX}}
+  
 
 
 

@@ -9,6 +9,8 @@ import VueAxios from 'vue-axios'
 import { Message } from 'element-ui'
 // import 'element-ui/lib/theme-chalk/index.css';
 // 组件
+// 写成import store from './store'也可以，默认会读取index.js
+import store from './store/index' 
 import App from './App.vue'
 
 Message.success('666')
@@ -58,5 +60,6 @@ Vue.config.productionTip = false
 new Vue({
   // key 和 value 一样时可以只写一个
   router,
+  store,
   render: h => h(App),
 }).$mount('#app')
