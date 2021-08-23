@@ -2,12 +2,13 @@
 module.exports={
     devServer:{
         host: 'localhost',
-        port: 8008,
+        // port: 8080,
+        port: 50011,
         // vue提供了一套代理的方案，通过proxy做接口拦截，也可以解决前后端跨域的问题
         proxy: {
             '/api':{
                 // 代理不同环境改target
-                target: 'https://www.imooc.com', 
+                target: 'http://mall-pre.springboot.cn', 
                 changeOrigin: true,
                 pathRewrite:{
                     '/api':''
