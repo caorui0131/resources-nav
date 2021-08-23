@@ -6,9 +6,12 @@ import axios from 'axios'
 // * vue-axios
 //   * 把axios的作用域对象挂载到vue实例上，方便用this调用
 import VueAxios from 'vue-axios'
+import { Message } from 'element-ui'
+// import 'element-ui/lib/theme-chalk/index.css';
 // 组件
 import App from './App.vue'
 
+Message.success('666')
 // import env from './env'
 /**
  * import是预编译加载：在编译的时候所引文件就会被加载进来 写在内存当中

@@ -59,9 +59,12 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 1. [Vue](https://cn.vuejs.org/) 前端框架
 2. [Element UI](https://element.eleme.cn/#/zh-CN) 组件库
+  1. 前端UI+交互框架
+  2. js框架 ，bootscript是css框架
+  3. 适合做B端管理后台，不适合做C端门户网站
 3. [Sass](https://www.sass.hk/) 预编译器
  
-
+[学习例子-高仿小米](http://mi.futurefe.com/#/index)
 
 ### 后端
 
@@ -89,6 +92,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
   * 不知道安装什么插件就去 npm github上找最火的
 * 若要进行mock就安装 mockjs
   * npm i mockjs --save-dev
+* 安装Element UI
+  * 安装框架 npm i element-ui
+  * 安装按需加载 npm i  babel-plugin-component
+  * 添加配置 .babelrc；凡是涉及到配置（项目以外）的地方都需要重启应服务 
 
 
 
