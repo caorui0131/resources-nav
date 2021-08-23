@@ -7,7 +7,7 @@ module.exports={
         proxy: {
             '/api':{
                 // 代理不同环境改target
-                target: 'https://www.imooc.com', 
+                target: 'http://mall-pre.springboot.cn', 
                 changeOrigin: true,
                 pathRewrite:{
                     '/api':''

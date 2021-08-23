@@ -15,7 +15,7 @@ import App from './App.vue'
  * require在执行到的时候才会被加载
  */
 // mock开关
-const mock=true;
+const mock=false;
 if(mock){
   require('./mock/api')
 }
@@ -29,22 +29,22 @@ axios.defaults.timeout=8000;
 // axios.defaults.baseURL=env.baseURL
 // 【重要】拦截。interceptors是拦截器
 // 对rps进行错误拦截
-axios.interceptors.response.use(function(response){
-  let res=response.data;
-  if(res.status==0) {
-    return res.data;
-  }else if(res.statis==10){
-  /**  
-   * main.js用路由跳转没有用,因为路由是挂在vue实例里的，
-   * 在页面里（app.vue或其他.vue里才可以用路由this.$route.push）
-   * main.js里面的this没有指向Vue
-   * 哈希路由：带#的是哈希路由
-  */
-    window.location.href='/#/login';
-  }else{
-    alert(res.msg)
-  }
-});
+// axios.interceptors.response.use(function(response){
+//   let res=response.data;
+//   if(res.status==0) {
+//     return res.data;
+//   }else if(res.statis==10){
+//   /**  
+//    * main.js用路由跳转没有用,因为路由是挂在vue实例里的，
+//    * 在页面里（app.vue或其他.vue里才可以用路由this.$route.push）
+//    * main.js里面的this没有指向Vue
+//    * 哈希路由：带#的是哈希路由
+//   */
+//     window.location.href='/#/login';
+//   }else{
+//     alert(res.msg)
+//   }
+// });
 // * vue.use：注册。加载插件，类似nodejs的app.use，可以应用一个中间件。
 // 把axios挂载到VueAxios上
 Vue.use(VueAxios,axios)

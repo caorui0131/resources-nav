@@ -11,38 +11,34 @@
 // import jsonp from 'jsonp'
 
 export default {
-  name: 'App',
+  name: 'app',
   components: {
     
   },
   data(){
-    return{
-    }
+    // return{
+    // }
   },
   mounted(){
-    // 本地加载请求静态json文件的形式
-    this.axios.get('/mock/user/login.json').then((res)=>{
-      this.res=res;
-    })
-    // 通过easy-mock平台实现数据mock  https://easy-mock.com/login
-    this.axios.get('/user/login').then((res)=>{
-      this.res=res;
-    })
-    // 本地集成mockjs实现数据mock  https://github.com/nuysoft/Mock/wiki/Getting-Started
-    this.axios.get('/user/login').then((res)=>{
-      this.res=res;
-    })
+    // // 本地加载请求静态json文件的形式
+    // this.axios.get('/mock/user/login.json').then((res)=>{
+    //   this.res=res;
+    // })
+    // // 通过easy-mock平台实现数据mock  https://easy-mock.com/login
+    // this.axios.get('/user/login').then((res)=>{
+    //   this.res=res;
+    // })
+    // // 本地集成mockjs实现数据mock  https://github.com/nuysoft/Mock/wiki/Getting-Started
+    // this.axios.get('/user/login').then((res)=>{
+    //   this.res=res;
+    // })
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
+<style lang="scss">
+/* @import 导入css,和js导入不一样不需要from，from 把一个js对象/变量 变成一个对象*/
+@import './assets/scss/reset.scss';
+@import './assets/scss/config.scss';
 </style>

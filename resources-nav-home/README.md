@@ -84,7 +84,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 * 安装调试工具 [vue-devtools](https://github.com/vuejs/devtools/) 报错则下载[vue-devtools v5.1.1](https://codeload.github.com/vuejs/devtools/zip/refs/tags/v5.1.1)
 * [VUE 配置vue-devtools调试工具](http://www.imooc.com/article/294527)
 * 安装插件
-  * 懒加载、element-ui组件库、sass预编译器、轮播图、前后端交互用cookie识别用户：npm i vue-lazyload element-ui node-sass sass-loader vue-awesome-swiper vue-axios vue-cookie --save-dev
+  * 懒加载、element-ui组件库、sass预编译器、轮播图、前后端交互用cookie识别用户：npm i vue-lazyload element-ui node-sass sass-loader
+  * node-sass@5.0.0和sass-loader@10.1.1绝配！
+  *  vue-awesome-swiper vue-axios vue-cookie --save-dev
   * 把axios挂载在vue实例里，简化导入组件的步骤：npm i vue-axios ,--save-dev：保存到package.json
   * 不知道安装什么插件就去 npm github上找最火的
 * 若要进行mock就安装 mockjs
@@ -121,6 +123,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 }
 ```
 
+* vue语法
+  * :key  
+    * 渲染速度更高
+    * 后期复用率更高，重复二次渲染的时候会自动缓存（发现有缓存就直接取了不会重复渲染 ），从而提升性能
 ## 目录结构
 
 ```
@@ -131,6 +137,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 │   └── 
 ├── src 前端项目主目录
 │   ├── assets 资源文件
+│       ├── base.scss 公共样式
+│       └── moxin.scss 把变量抽离出来，把样式定义成方法
 │   ├── components 组件
 │   ├── api 接口文档
 │   │   └── index.js整个项目的api请求
@@ -139,5 +147,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 │   ├── 
 │   ├── router.js 路由
 │   └── util 工具,公共的方法
-└── 
+└── resource 资源
+    ├── reset.scss 覆盖网页内置样式
+    └── config.scss 项目架构的一部分，把常规、常用的颜色、字号抽出来
 ```
