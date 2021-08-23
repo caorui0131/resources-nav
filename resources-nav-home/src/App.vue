@@ -1,8 +1,13 @@
 <template>
+  <!-- 单页面：只有一个入口的页面；单页面只有首页会被seo收录 -->
+  <!-- 多页面：；每一个页面都是一个单独的.html；一般用于搜索引擎，方便后端渲染 -->
   <div id="app">
     <router-view></router-view>
   </div>
 </template>
+
+<style>
+</style>
 
 <script>
 // router-view 是视图，app里面的web view，可以加载所有的子页面（所有页面都必须经过他），放在这可以嵌套其他的组件
