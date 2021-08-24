@@ -2,31 +2,12 @@ var mysql = require('mysql');//从node_modules中引入包
 const config = require('./config')
 
 var connection = mysql.createConnection(config.blogMysql);
-
-// if(config.env=='development'){
-//   var connection = mysql.createConnection({//创建一个mysql链接对象
-//     host     : 'localhost',
-//     port     : 3306,
-//     user     : 'root',
-//     password : 'Cr18811657411',
-//     database : 'blog'
-//   });
-// }else{
-//   var connection = mysql.createConnection({//创建一个mysql链接对象
-//     host     : 'rm-8vbxh2o8a651reb5m3o.mysql.zhangbei.rds.aliyuncs.com',
-//     port     : 3306,
-//     user     : 'caorui',
-//     password : 'wftest@231',
-//     database : 'blog'
-//   });
-// }
-
 connection.connect();//开始链接
 // 查询mysql中的数据-测试
 // connection.query('SELECT * from blogs', function (error, results, fields) {
 //   console.log(results)
 // });
-
+const { exec } = require('./mysql')
 //非数据库相关函数
 // 格式化时间
 function formatDate(date) {
@@ -181,21 +162,14 @@ function checkLogin(data){
     });
   });
 }
-
 // tags表
 // 查询所有taglist
 function selectTagList(){
-  return new Promise(function (resolve, reject) {
-    connection.query('SELECT tags.id,tags.title FROM blog.tags where 1=1' , function (error, results, fields) {
-      if (error) {
-        console.log(error);
-        reject(error);
-      } else {
-        // console.log(results);
-        resolve(results);
-      }
-    });
-  });
+  const sql = `SELECT tags.id,tags.title FROM blog.tags where 1=1`
+  return exec(sql).then(rows => {
+    console.log(rows);
+    return rows[0]
+  })
 };
 // 查询 用户拥有的 taglist
 function selectUserTagList(data){
@@ -329,29 +303,39 @@ function addBlogTag(data){
   });
 };
 function selectUrlclassList(){
-  return new Promise(function (resolve, reject) {
-    connection.query('select * from urlclass INNER JOIN urlclass2urls on  urlclass2urls.urlclassId=urlclass.urlclassId  group by urlclass2urls.urlclassId order by urlclass.sort desc;', function (error, results, fields) {
-      if (error) {
-        reject(error);
-      } else {
-        // console.log(results);
-        resolve(results);
-      }
-    });
-  });
+  // return new Promise(function (resolve, reject) {
+  //   connection.query('select * from urlclass INNER JOIN urlclass2urls on  urlclass2urls.urlclassId=urlclass.urlclassId  group by urlclass2urls.urlclassId order by urlclass.sort desc;', function (error, results, fields) {
+  //     if (error) {
+  //       reject(error);
+  //     } else {
+  //       // console.log(results);
+  //       resolve(results);
+  //     }
+  //   });
+  // });
+  const sql = 'select * from urlclass INNER JOIN urlclass2urls on  urlclass2urls.urlclassId=urlclass.urlclassId  group by urlclass2urls.urlclassId order by urlclass.sort desc;'
+  return exec(sql).then(rows => {
+    console.log(rows);
+    return rows[0]
+  })
 };
 function selectUrlList(urlclassId){
   console.log('urlclassId:',urlclassId)
-  return new Promise(function (resolve, reject) {
-    connection.query('select * from urls INNER JOIN urlclass2urls on urlclass2urls.urlId=urls.urlId where urlclass2urls.urlclassId= '+urlclassId+' order by urlclass2urls.sort desc;', function (error, results, fields) {
-      if (error) {
-        reject(error);
-      } else {
-        // console.log(results);
-        resolve(results);
-      }
-    });
-  });
+  // return new Promise(function (resolve, reject) {
+  //   connection.query('select * from urls INNER JOIN urlclass2urls on urlclass2urls.urlId=urls.urlId where urlclass2urls.urlclassId= '+urlclassId+' order by urlclass2urls.sort desc;', function (error, results, fields) {
+  //     if (error) {
+  //       reject(error);
+  //     } else {
+  //       // console.log(results);
+  //       resolve(results);
+  //     }
+  //   });
+  // });
+  const sql = 'select * from urls INNER JOIN urlclass2urls on urlclass2urls.urlId=urls.urlId where urlclass2urls.urlclassId= '+urlclassId+' order by urlclass2urls.sort desc;'
+  return exec(sql).then(rows => {
+    console.log(rows);
+    return rows[0]
+  })
 };
 module.exports = {
   // blogs表
