@@ -8,8 +8,10 @@ module.exports={
         proxy: {
             '/api':{
                 // 代理不同环境改target
-                target: 'http://mall-pre.springboot.cn', 
+                // target: 'http://mall-pre.springboot.cn', 
+                target: 'http://192.168.20.232', 
                 changeOrigin: true,
+                logLevel: "debug",
                 pathRewrite:{
                     '/api':''
                 }

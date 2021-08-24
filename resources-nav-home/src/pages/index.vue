@@ -67,20 +67,21 @@
                 </el-aside>
             <!-- </div> -->
             <el-main>
-                Main
+                Main{{aa}}
                 <nav-footer></nav-footer>
             </el-main>
         </el-container>
     </div>
 </template>
 <style lang="scss">
-// @import './assets/scss/reset.scss';
-// @import './assets/scss/config.scss';
+@import './../assets/scss/base.scss';
+@import './../assets/scss/mixin.scss';
+@import './../assets/scss/config.scss';
 .container{
-    padding-top: 60px!important;
+    padding-top: 61px!important;
 }
 .el-aside,.el-main{
-    height: calc(100vh - 60px)!important;
+    height: calc(100vh - 61px)!important;
     overflow: hidden auto!important;
 }
 .el-aside{
@@ -99,16 +100,24 @@
     color: #606266!important;
     box-shadow:none!important;
 }
-.el-icon-s-unfold,.el-icon-s-fold{
-    width: 18px!important;
-    height: 18px!important;
-    &:hover{
-        // color: $colorA!important;
-        color:#409eff!important;
-        transition: all 0.2s;
-    }
+.el-radio-group  .el-radio-button{
+    width:100%!important;
 }
-
+.el-radio-group  .el-radio-button__inner{
+    // width: 18px!important;
+    // height: 18px!important;
+    width:100%!important;
+    font-size: 18px!important;
+    vertical-align: middle!important;
+    // &:hover{
+    //     // color: $colorA!important;
+    //     color:#409eff!important;
+    //     transition: all 0.2s;
+    // }
+}
+.el-radio-group  .el-radio-button__inner i{
+    float: left;
+}
 .el-aside{
     display: flex;
     flex-direction: column;
@@ -124,6 +133,15 @@
     width: 100%;
     overflow: hidden;
     margin-bottom: 0px!important;
+    background-color: #fff!important;
+    border-right: solid 1px #e6e6e6!important;
+    border-top: solid 1px #e6e6e6!important;
+    box-sizing: border-box!important;
+    &:hover .el-radio-button__inner{
+        // color: $colorA!important;
+        color:$colorA !important;
+        cursor: pointer;
+    }
 }
 .el-radio-group .el-radio-button{
     height:40px;
@@ -145,10 +163,20 @@
         components:{
             NavFooter 
         },
+        // 定义局部的，防止篡改
         data() {
+            // return只允许当前页面使用
             return {
-                isCollapse: false
+                isCollapse: false,
+                aa:{},
             };
+        },
+        computed:{
+
+        },
+        // 相当于ready，初始化调用的方法，要调用methods中定义的方法
+        mounted(){
+            this.a()
         },
         methods: {
             handleOpen(key, keyPath) {
@@ -159,8 +187,14 @@
                 console.log(key, keyPath);
             },
             select(){
-
                 alert(0)
+            },
+            a(){
+                this.axios.post('/logout',{
+                }).then((res)=>{
+                    this.aa=res.data.successText;
+                    console.log(res.data)
+                })
             }
         },
         Container,

@@ -1,10 +1,11 @@
 <template>
     <div class="header">
         <el-header>
+            <div class="header-left">资源导航</div>
             <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-                <el-menu-item index="1">处理中心</el-menu-item>
+                <el-menu-item index="1">主页</el-menu-item>
                 <el-submenu index="2">
-                    <template slot="title">我的工作台</template>
+                    <template slot="title">资源</template>
                     <el-menu-item index="2-1">选项1</el-menu-item>
                     <el-menu-item index="2-2">选项2</el-menu-item>
                     <el-menu-item index="2-3">选项3</el-menu-item>
@@ -15,8 +16,10 @@
                     <el-menu-item index="2-4-3">选项3</el-menu-item>
                     </el-submenu>
                 </el-submenu>
-                <el-menu-item index="3" disabled>消息中心</el-menu-item>
-                <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>
+                <el-menu-item index="3">排行</el-menu-item>
+                <el-menu-item index="4">个人</el-menu-item>
+                <!-- <el-menu-item index="7" disabled>消息中心</el-menu-item>
+                <el-menu-item index="8"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item> -->
             </el-menu>
             <div class="line"></div>
             <el-menu
@@ -29,9 +32,16 @@
                 active-text-color="#ffd04b">
             </el-menu>
         </el-header>
+        
+
     </div>
 </template>
 <style lang="scss">
+@import './../assets/scss/base.scss';
+@import './../assets/scss/mixin.scss';
+@import './../assets/scss/config.scss';
+//   // 调用mixin.scss中的函数
+//   @include flex();
 .header{
     position: fixed;
     top: 0;
@@ -40,12 +50,22 @@
     z-index: 100;
     right: 0px;
 }
+.header-left{
+    font-size:$fontI;
+    display: flex;
+    min-width: 184px;
+}
 .el-header,.header{
     height: 61px !important;
+}
+.el-header{
+    display: flex;
     padding: 0 0px!important;
+    border-bottom: solid 1px #e6e6e6;
+    padding:0px 16px!important;
 }
 .el-menu.el-menu--horizontal{
-    // border-bottom:none!important;
+    border-bottom:none!important;
 }
     
 </style>
@@ -58,24 +78,18 @@
         // data不要定义成全局的data，防止数据的窜用
         data(){
             return{
+                activeIndex: '1',
+                activeIndex2: '1',
                 username: 'jack',
                 phoneList:[],
             }
         },
         // 类似于ready，初始化需要调用的方法
         mounted(){
-            this.getProductList();
         },
         methods: {
-            getProductList(){
-                this.axios.get('/products',{
-                params:{
-                    categoryId:'100012',
-                    pageSize:6
-                }
-                }).then((res)=>{
-                    this.phoneList = res.list;
-                })
+            handleSelect(key, keyPath) {
+                console.log(key, keyPath);
             },
             greet() {
                 // alert(5)
@@ -91,10 +105,3 @@
         }
     }
 </script>
-<style lang="scss">
-  @import './../assets/scss/base.scss';
-  @import './../assets/scss/mixin.scss';
-  @import './../assets/scss/config.scss';
-//   // 调用mixin.scss中的函数
-//   @include flex();
-</style>
