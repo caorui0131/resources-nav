@@ -4,7 +4,7 @@
             <!-- <div class="el-aside-c"> -->
                 <el-aside>
                     <!-- <div class="el-aside-c"> -->
-                        <el-menu default-active="1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
+                        <el-menu default-active="1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse" @select="select">
                             <el-submenu index="1">
                                 <template slot="title">
                                     <i class="el-icon-location"></i>
@@ -60,16 +60,14 @@
                         <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
                             <!-- <el-radio-button :label="false">展开</el-radio-button>
                             <el-radio-button :label="true">收起</el-radio-button> -->
-                            <el-radio-button :label="false"><i class="el-icon-s-unfold"></i></el-radio-button>
-                            <el-radio-button :label="true"><i class="el-icon-s-fold"></i></el-radio-button>
+                            <el-radio-button :label="false" v-show="isCollapse"><i class="el-icon-s-unfold"></i></el-radio-button>
+                            <el-radio-button :label="true" v-show="!isCollapse"><i class="el-icon-s-fold"></i></el-radio-button>
                         </el-radio-group>
                     <!-- </div> -->
                 </el-aside>
             <!-- </div> -->
             <el-main>
                 Main
-                <i class="el-icon-s-unfold"></i>
-                <i class="el-icon-s-fold"></i>
                 <nav-footer></nav-footer>
             </el-main>
         </el-container>
@@ -124,9 +122,8 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    // height:40px;
     overflow: hidden;
-    // box-sizing: border-box;
+    margin-bottom: 0px!important;
 }
 .el-radio-group .el-radio-button{
     height:40px;
@@ -150,18 +147,21 @@
         },
         data() {
             return {
-                isCollapse: true
+                isCollapse: false
             };
         },
         methods: {
             handleOpen(key, keyPath) {
                 console.log(key, keyPath);
-                alert(0)
                 // $('el-radio-button :label="false"').hide();
             },
             handleClose(key, keyPath) {
                 console.log(key, keyPath);
             },
+            select(){
+
+                alert(0)
+            }
         },
         Container,
     }

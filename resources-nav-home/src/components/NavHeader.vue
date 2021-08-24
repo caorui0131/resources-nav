@@ -39,10 +39,13 @@
     width: 100%;
     z-index: 100;
     right: 0px;
+}
+.el-header,.header{
     height: 61px !important;
+    padding: 0 0px!important;
 }
 .el-menu.el-menu--horizontal{
-    border-bottom:none!important;
+    // border-bottom:none!important;
 }
     
 </style>
