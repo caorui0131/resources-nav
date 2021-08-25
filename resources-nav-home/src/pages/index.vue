@@ -5,7 +5,27 @@
                 <el-aside>
                     <!-- <div class="el-aside-c"> -->
                         <el-menu default-active="1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse" @select="select">
-                            <el-submenu index="1">
+                            <el-submenu v-for="(item) in selectUrlclassTree" :index="item.urlclassId" :key="item.urlclassId">
+                                <template slot="title">
+                                    <i class="el-icon-location"></i>
+                                    <span slot="title">{{item.name}}{{item.urlclassId}}</span>
+                                </template>
+                                <template v-if="item.chindren&&item.chindren[0].chindren">
+                                    <el-submenu :index="item.chindren[0].urlclassId">
+                                        <!-- <el-menu-item-group  v-for="(iitem) in item.chindren" :key="item.urlclassId">
+                                            <el-menu-item index="1-1">{{iitem.name}}</el-menu-item>
+                                        </el-menu-item-group> -->
+                                        <span slot="title" v-for="(iitem) in item.chindren" :key="iitem.urlclassId">{{iitem.name}}{{iitem.urlclassId}}</span>
+                                        <template v-if="item.chindren[0].chindren">
+                                            <el-menu-item v-for="(iiitem) in item.chindren[0].chindren" :index="iiitem.urlclassId" :key="iiitem.urlclassId">{{iiitem.name}}{{iiitem.urlclassId}}</el-menu-item>
+                                        </template>
+                                    </el-submenu>
+                                </template>
+                                <template v-else>
+                                    <el-menu-item v-for="(iitem) in item.chindren"  :index="iitem.urlclassId" :key="iitem.urlclassId">{{iitem.name}}{{iitem.urlclassId}}</el-menu-item>
+                                </template>
+                            </el-submenu>
+                            <!-- <el-submenu index="1">
                                 <template slot="title">
                                     <i class="el-icon-location"></i>
                                     <span slot="title">导航一</span>
@@ -22,27 +42,6 @@
                                     <span slot="title">选项4</span>
                                     <el-menu-item index="1-4-1">选项1</el-menu-item>
                                 </el-submenu>
-                                <el-submenu index="1-4">
-                                    <span slot="title">选项4</span>
-                                    <el-menu-item index="1-4-1">选项1</el-menu-item>
-                                </el-submenu>
-                                <el-submenu index="1-4">
-                                    <span slot="title">选项4</span>
-                                    <el-menu-item index="1-4-1">选项1</el-menu-item>
-                                </el-submenu>
-                                <el-submenu index="1-4">
-                                    <span slot="title">选项4</span>
-                                    <el-menu-item index="1-4-1">选项1</el-menu-item>
-                                </el-submenu>
-                                <el-submenu index="1-4">
-                                    <span slot="title">选项4</span>
-                                    <el-menu-item index="1-4-1">选项1</el-menu-item>
-                                </el-submenu>
-                                <el-submenu index="1-4">
-                                    <span slot="title">选项4</span>
-                                    <el-menu-item index="1-4-1">选项1</el-menu-item>
-                                </el-submenu>
-
                             </el-submenu>
                             <el-menu-item index="2">
                                 <i class="el-icon-menu"></i>
@@ -55,7 +54,7 @@
                             <el-menu-item index="4">
                                 <i class="el-icon-setting"></i>
                                 <span slot="title">导航四</span>
-                            </el-menu-item>
+                            </el-menu-item> -->
                         </el-menu>
                         <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
                             <!-- <el-radio-button :label="false">展开</el-radio-button>
@@ -67,7 +66,7 @@
                 </el-aside>
             <!-- </div> -->
             <el-main>
-                Main{{aa}}
+                Main{{selectUrlclassTree}}
                 <nav-footer></nav-footer>
             </el-main>
         </el-container>
@@ -168,7 +167,7 @@
             // return只允许当前页面使用
             return {
                 isCollapse: false,
-                aa:{},
+                selectUrlclassTree:[],
             };
         },
         computed:{
@@ -176,7 +175,7 @@
         },
         // 相当于ready，初始化调用的方法，要调用methods中定义的方法
         mounted(){
-            this.a()
+            this.getSelectUrlclassTree()
         },
         methods: {
             handleOpen(key, keyPath) {
@@ -187,13 +186,17 @@
                 console.log(key, keyPath);
             },
             select(){
-                alert(0)
             },
-            a(){
-                this.axios.post('/logout',{
+            getSelectUrlclassTree(){
+                // this.axios.post('/logout',{
+                // }).then((res)=>{
+                //     this.aa=res.data.successText;
+                //     console.log(res.data)
+                // })
+                this.axios.get('/leftSubmenuList',{
                 }).then((res)=>{
-                    this.aa=res.data.successText;
-                    console.log(res.data)
+                    this.selectUrlclassTree=res.data.chindren;
+                    console.log(res.data.chindren)
                 })
             }
         },

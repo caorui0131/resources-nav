@@ -248,28 +248,55 @@ function formatDate(date) {
 }
 
 // 导航-技术
-router.get('/technology', async function(req, res, next) {
-  // var data={
-  //   nav:'technology'
-  // }
+router.get('/leftSubmenuList', async function(req, res, next) {
+  // let parentId = req.params.parentId || NULL;
   try{
     // 包含url的Urlclass
     var selectUrlclassList= await db.selectUrlclassList().catch((err) => {
       console.error(err);
       throw err;
     });
-    // console.log('selectUrlclassList:',selectUrlclassList)
-    for (var i = 0; i < selectUrlclassList.length; i++) {
-      selectUrlclassList[i].urlList = [];
-      var urlList= await db.selectUrlList(selectUrlclassList[i].urlclassId).catch((err) => {
-        console.error(err);
-        throw err;
-      });
-      // console.log('urlList:',urlList)
-      selectUrlclassList[i].urlList.push(urlList);
+    
+    console.log('selectUrlclassList1:',selectUrlclassList)
+    function translateData(data, idStr, pidStr, chindrenStr) {
+      var result = [],
+          temp = {},
+          id = idStr,
+          pid = pidStr,
+          children = chindrenStr,
+          i = 0,
+          j = 0,
+          len = data.length;
+      // 重新把数组中的对象重新放到一个新的对象中，新的对象是以id 的值为键
+      for (; i < len; i++) {
+          // 建立temp对象，由于对象是引用类型，修改temp或者data都会引起另一方改变
+          temp[data[i][id]] = data[i];
+          console.log('temp0:',temp)
+          // temp[a[i][id]] = JSON.parse(JSON.stringify(data[i])); 这种情况data和temp是独立的
+      }
+      // aVal 存储数组中的对象，获取新对象中key为pid 的对象，如果存在	
+      for (; j < len; j++) {
+        var dataVal = data[j],
+            tempObj = temp[dataVal[pid]];
+
+        if (tempObj) {
+            // 如果	tempObj[children]不存在，把tempObj[children]设为数组	
+            !tempObj[children] && (tempObj[children] = []);
+            tempObj[children].push(dataVal);
+        } else {
+            // 如果不存在就把dataVal放到结果中		
+            result.push(dataVal);
+        }
+      }
+      console.log('data:',data)
+      // console.log('len:',len)
+      console.log('temp:',temp)
+    return result;
     }
-    console.log('selectUrlclassList:',selectUrlclassList)
-    res.render('technology', {selectUrlclassList:selectUrlclassList});
+    var selectUrlclassTree=translateData(JSON.parse(selectUrlclassList), 'urlclassId', 'parentId', 'chindren')
+    
+    console.log('selectUrlclassList2:',translateData(JSON.parse(selectUrlclassList), 'urlclassId', 'parentId', 'chindren'))
+    res.json(selectUrlclassTree[0]);
   }catch(err){
     console.error('/error',err);
   }
