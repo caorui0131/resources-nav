@@ -37,29 +37,12 @@ function selectUrlclassList(){
     return JSON.stringify(rows)
   })
 };
-function selectUrlclassListWhere(){
-  // return new Promise(function (resolve, reject) {
-  //   connection.query('select * from urlclass INNER JOIN urlclass2urls on  urlclass2urls.urlclassId=urlclass.urlclassId  group by urlclass2urls.urlclassId order by urlclass.sort desc;', function (error, results, fields) {
-  //     if (error) {
-  //       reject(error);
-  //     } else {
-  //       // console.log(results);
-  //       resolve(results);
-  //     }
-  //   });
-  // });
-  const sql = 'select * from urlclass where parentId=0 order by urlclass.sort desc;'
-  return exec(sql).then(rows => {
-    console.log(rows);
-    return rows
-  })
-};
 function selectUrlList(urlclassId){
   console.log('urlclassId:',urlclassId)
   const sql = 'select * from urls INNER JOIN urlclass2urls on urlclass2urls.urlId=urls.urlId where urlclass2urls.urlclassId= '+urlclassId+' order by urlclass2urls.sort desc;'
   return exec(sql).then(rows => {
     // console.log(rows);
-    return rows[0]
+    return rows
   })
 };
 module.exports = {

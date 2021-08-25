@@ -23,12 +23,10 @@
 .el-aside {
     background-color: #D3DCE6;
     color: #333;
-    line-height: 200px;
 }
 .el-main {
     background-color: #E9EEF3;
     color: #333;
-    line-height: 160px;
 }
 body > .el-container {
     margin-bottom: 40px;

@@ -247,7 +247,7 @@ function formatDate(date) {
   return YY + MM + DD + " " + hh + mm + ss;
 }
 
-// 导航-技术
+// 获取左侧树形导航
 router.get('/leftSubmenuList', async function(req, res, next) {
   // let parentId = req.params.parentId || NULL;
   try{
@@ -256,7 +256,6 @@ router.get('/leftSubmenuList', async function(req, res, next) {
       console.error(err);
       throw err;
     });
-    
     console.log('selectUrlclassList1:',selectUrlclassList)
     function translateData(data, idStr, pidStr, chindrenStr) {
       var result = [],
@@ -271,14 +270,12 @@ router.get('/leftSubmenuList', async function(req, res, next) {
       for (; i < len; i++) {
           // 建立temp对象，由于对象是引用类型，修改temp或者data都会引起另一方改变
           temp[data[i][id]] = data[i];
-          console.log('temp0:',temp)
           // temp[a[i][id]] = JSON.parse(JSON.stringify(data[i])); 这种情况data和temp是独立的
       }
       // aVal 存储数组中的对象，获取新对象中key为pid 的对象，如果存在	
       for (; j < len; j++) {
         var dataVal = data[j],
             tempObj = temp[dataVal[pid]];
-
         if (tempObj) {
             // 如果	tempObj[children]不存在，把tempObj[children]设为数组	
             !tempObj[children] && (tempObj[children] = []);
@@ -288,15 +285,28 @@ router.get('/leftSubmenuList', async function(req, res, next) {
             result.push(dataVal);
         }
       }
-      console.log('data:',data)
-      // console.log('len:',len)
-      console.log('temp:',temp)
+      // console.log('data:',data)
+      // console.log('temp:',temp)
     return result;
     }
     var selectUrlclassTree=translateData(JSON.parse(selectUrlclassList), 'urlclassId', 'parentId', 'chindren')
     
-    console.log('selectUrlclassList2:',translateData(JSON.parse(selectUrlclassList), 'urlclassId', 'parentId', 'chindren'))
+    // console.log('selectUrlclassList2:',translateData(JSON.parse(selectUrlclassList), 'urlclassId', 'parentId', 'chindren'))
     res.json(selectUrlclassTree[0]);
+  }catch(err){
+    console.error('/error',err);
+  }
+});
+// 根据左侧树形导航的id 获取 其包含的urlList
+router.get('/urlList/:urlclassId', async function(req, res, next) {
+  let urlclassId = req.params.urlclassId || NULL;
+  try{
+      var urlList= await db.selectUrlList(urlclassId).catch((err) => {
+        console.error(err);
+        throw err;
+      });
+      console.log('urlList:',urlList)
+    res.json(urlList);
   }catch(err){
     console.error('/error',err);
   }

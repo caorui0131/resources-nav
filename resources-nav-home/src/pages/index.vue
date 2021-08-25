@@ -1,72 +1,55 @@
 <template>
     <div class="container">
         <el-container>
-            <!-- <div class="el-aside-c"> -->
-                <el-aside>
-                    <!-- <div class="el-aside-c"> -->
-                        <el-menu default-active="1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse" @select="select">
-                            <el-submenu v-for="(item) in selectUrlclassTree" :index="item.urlclassId" :key="item.urlclassId">
-                                <template slot="title">
-                                    <i class="el-icon-location"></i>
-                                    <span slot="title">{{item.name}}{{item.urlclassId}}</span>
-                                </template>
-                                <template v-if="item.chindren&&item.chindren[0].chindren">
-                                    <el-submenu :index="item.chindren[0].urlclassId">
-                                        <!-- <el-menu-item-group  v-for="(iitem) in item.chindren" :key="item.urlclassId">
-                                            <el-menu-item index="1-1">{{iitem.name}}</el-menu-item>
-                                        </el-menu-item-group> -->
-                                        <span slot="title" v-for="(iitem) in item.chindren" :key="iitem.urlclassId">{{iitem.name}}{{iitem.urlclassId}}</span>
-                                        <template v-if="item.chindren[0].chindren">
-                                            <el-menu-item v-for="(iiitem) in item.chindren[0].chindren" :index="iiitem.urlclassId" :key="iiitem.urlclassId">{{iiitem.name}}{{iiitem.urlclassId}}</el-menu-item>
-                                        </template>
-                                    </el-submenu>
-                                </template>
-                                <template v-else>
-                                    <el-menu-item v-for="(iitem) in item.chindren"  :index="iitem.urlclassId" :key="iitem.urlclassId">{{iitem.name}}{{iitem.urlclassId}}</el-menu-item>
+            <el-aside>
+                <el-menu default-active="1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse" @select="select">
+                    <el-submenu v-for="(item) in selectUrlclassTree" :index="item.urlclassId" :key="item.urlclassId">
+                        <template slot="title">
+                            <i class="el-icon-location"></i>
+                            <span slot="title">{{item.name}}{{item.urlclassId}}</span>
+                        </template>
+                        <template v-if="item.chindren&&item.chindren[0].chindren">
+                            <el-submenu :index="item.chindren[0].urlclassId">
+                                <!-- <el-menu-item-group  v-for="(iitem) in item.chindren" :key="item.urlclassId">
+                                    <el-menu-item index="1-1">{{iitem.name}}</el-menu-item>
+                                </el-menu-item-group> -->
+                                <span slot="title" v-for="(iitem) in item.chindren" :key="iitem.urlclassId">{{iitem.name}}{{iitem.urlclassId}}</span>
+                                <template v-if="item.chindren[0].chindren">
+                                    <el-menu-item v-for="(iiitem) in item.chindren[0].chindren" :index="iiitem.urlclassId" :key="iiitem" @click="getUrlList(iiitem.urlclassId)">{{iiitem.name}}{{iiitem.urlclassId}}</el-menu-item>
                                 </template>
                             </el-submenu>
-                            <!-- <el-submenu index="1">
-                                <template slot="title">
-                                    <i class="el-icon-location"></i>
-                                    <span slot="title">导航一</span>
-                                </template>
-                                <el-menu-item-group>
-                                    <span slot="title">分组一</span>
-                                    <el-menu-item index="1-1">选项1</el-menu-item>
-                                    <el-menu-item index="1-2">选项2</el-menu-item>
-                                </el-menu-item-group>
-                                    <el-menu-item-group title="分组2">
-                                    <el-menu-item index="1-3">选项3</el-menu-item>
-                                </el-menu-item-group>
-                                <el-submenu index="1-4">
-                                    <span slot="title">选项4</span>
-                                    <el-menu-item index="1-4-1">选项1</el-menu-item>
-                                </el-submenu>
-                            </el-submenu>
-                            <el-menu-item index="2">
-                                <i class="el-icon-menu"></i>
-                                <span slot="title">导航二</span>
-                            </el-menu-item>
-                            <el-menu-item index="3" disabled>
-                                <i class="el-icon-document"></i>
-                                <span slot="title">导航三</span>
-                            </el-menu-item>
-                            <el-menu-item index="4">
-                                <i class="el-icon-setting"></i>
-                                <span slot="title">导航四</span>
-                            </el-menu-item> -->
-                        </el-menu>
-                        <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
-                            <!-- <el-radio-button :label="false">展开</el-radio-button>
-                            <el-radio-button :label="true">收起</el-radio-button> -->
-                            <el-radio-button :label="false" v-show="isCollapse"><i class="el-icon-s-unfold"></i></el-radio-button>
-                            <el-radio-button :label="true" v-show="!isCollapse"><i class="el-icon-s-fold"></i></el-radio-button>
-                        </el-radio-group>
-                    <!-- </div> -->
-                </el-aside>
-            <!-- </div> -->
+                        </template>
+                        <template v-else>
+                            <el-menu-item v-for="(iitem) in item.chindren"  :index="iitem.urlclassId" :key="iitem.urlclassId" @click="getUrlList(iiitem)">{{iitem.name}}{{iitem.urlclassId}}</el-menu-item>
+                        </template>
+                    </el-submenu>
+                </el-menu>
+                <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
+                    <!-- <el-radio-button :label="false">展开</el-radio-button>
+                    <el-radio-button :label="true">收起</el-radio-button> -->
+                    <el-radio-button :label="false" v-show="isCollapse"><i class="el-icon-s-unfold"></i></el-radio-button>
+                    <el-radio-button :label="true" v-show="!isCollapse"><i class="el-icon-s-fold"></i></el-radio-button>
+                </el-radio-group>
+            </el-aside>
             <el-main>
-                Main{{selectUrlclassTree}}
+                <el-row :gutter="20">
+                        <template v-if="urlList.length > 0">
+                            <el-col :span="6" v-for="item in urlList" :key="item.urlclassId">
+                                <el-card class="box-card" shadow="hover" @click="openUrl">
+                                    <div slot="header" class="clearfix">
+                                        <span>{{item.name}}</span>
+                                        <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+                                    </div>
+                                    <div class="text item">
+                                        {{item.content}}
+                                    </div>
+                                    <!-- <div v-for="o in 4" :key="o" class="text item">
+                                        {{'列表内容 ' + o }}
+                                    </div> -->
+                                </el-card>
+                            </el-col>
+                        </template>
+                </el-row>
                 <nav-footer></nav-footer>
             </el-main>
         </el-container>
@@ -79,6 +62,7 @@
 .container{
     padding-top: 61px!important;
 }
+// 左导航-开始
 .el-aside,.el-main{
     height: calc(100vh - 61px)!important;
     overflow: hidden auto!important;
@@ -145,12 +129,59 @@
 .el-radio-group .el-radio-button{
     height:40px;
 }
-// .el-icon-s-unfold{
-//     width:50px;
-//     height:50px;
-//     position: relative;
-//     z-index: 9999;
-// }
+// 左导航-结束
+// 布局开始
+.el-row {
+    margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .el-col {
+    border-radius: 4px;
+  }
+  .bg-purple-dark {
+    background: #99a9bf;
+  }
+  .bg-purple {
+    background: #d3dce6;
+  }
+  .bg-purple-light {
+    background: #e5e9f2;
+  }
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+  }
+  .row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
+  }
+// 布局结束
+// 卡片-开始
+.el-card{
+    display: inline-block !important;
+    width: 100%;
+    cursor: pointer;
+}
+.text {
+    font-size: 14px;
+}
+.item {
+    margin-bottom: 18px;
+}
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: "";
+}
+.clearfix:after {
+    clear: both
+}
+.box-card {
+    // width: 400px;
+}
+// 卡片-结束
 </style>
 <script>
     import { Container } from 'element-ui'
@@ -168,6 +199,7 @@
             return {
                 isCollapse: false,
                 selectUrlclassTree:[],
+                urlList:[],
             };
         },
         computed:{
@@ -176,6 +208,7 @@
         // 相当于ready，初始化调用的方法，要调用methods中定义的方法
         mounted(){
             this.getSelectUrlclassTree()
+            this.getUrlList()
         },
         methods: {
             handleOpen(key, keyPath) {
@@ -198,6 +231,19 @@
                     this.selectUrlclassTree=res.data.chindren;
                     console.log(res.data.chindren)
                 })
+            },
+            getUrlList(){
+                this.axios.get(`/urlList/${iiitem.urlclassId}`,{
+                    // params:{
+                    //     urlclassId:'2',
+                    // }
+                }).then((res)=>{
+                    this.urlList=res.data;
+                    console.log(res.data)
+                })
+            },
+            openUrl(){
+
             }
         },
         Container,
