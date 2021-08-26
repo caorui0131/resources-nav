@@ -1,28 +1,44 @@
 <template>
-    <div class="container">
+    <!-- <div class="container"> -->
         <el-container>
+            <!-- 左侧树状导航 -->
             <el-aside>
                 <el-menu default-active="1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse" @select="select">
-                    <el-submenu v-for="(item) in selectUrlclassTree" :index="item.urlclassId" :key="item.urlclassId">
-                        <template slot="title">
-                            <i class="el-icon-location"></i>
-                            <span slot="title">{{item.name}}{{item.urlclassId}}</span>
+                    <div v-for="(item) in selectUrlclassTree" :key="item.urlclassId">
+                        <!-- 有子的一级导航 -->
+                        <template v-if="item&&item.chindren">
+                            <el-submenu  :index="item.urlclassId">
+                            <template slot="title">
+                                <i class="el-icon-location"></i>
+                                <span slot="title">{{item.name}}{{item.urlclassId}}</span>
+                            </template>
+                            <!-- 有子的二级导航 -->
+                            <template v-if="item.chindren&&item.chindren[0].chindren">
+                                <el-submenu :index="item.chindren[0].urlclassId">
+                                    <!-- <el-menu-item-group  v-for="(iitem) in item.chindren" :key="item.urlclassId">
+                                        <el-menu-item index="1-1">{{iitem.name}}</el-menu-item>
+                                    </el-menu-item-group> -->
+                                    <span slot="title" v-for="(iitem) in item.chindren" :key="iitem.urlclassId">{{iitem.name}}{{iitem.urlclassId}}</span>
+                                    <!--三级导航 -->
+                                    <template v-if="item.chindren[0].chindren">
+                                        <el-menu-item v-for="(iiitem) in item.chindren[0].chindren" :index="iiitem.urlclassId" :key="iiitem"  @click="getUrlList(iiitem)">{{iiitem.name}}{{iiitem.urlclassId}}</el-menu-item>
+                                    </template>
+                                </el-submenu>
+                            </template>
+                            <!-- 无子的二级导航 -->
+                            <template v-else>
+                                <el-menu-item v-for="(iitem) in item.chindren"  :index="iitem.urlclassId" :key="iitem.urlclassId"  @click="getUrlList(iitem)">{{iitem.name}}{{iitem.urlclassId}}</el-menu-item>
+                            </template>
+                        </el-submenu>
                         </template>
-                        <template v-if="item.chindren&&item.chindren[0].chindren">
-                            <el-submenu :index="item.chindren[0].urlclassId">
-                                <!-- <el-menu-item-group  v-for="(iitem) in item.chindren" :key="item.urlclassId">
-                                    <el-menu-item index="1-1">{{iitem.name}}</el-menu-item>
-                                </el-menu-item-group> -->
-                                <span slot="title" v-for="(iitem) in item.chindren" :key="iitem.urlclassId">{{iitem.name}}{{iitem.urlclassId}}</span>
-                                <template v-if="item.chindren[0].chindren">
-                                    <el-menu-item v-for="(iiitem) in item.chindren[0].chindren" :index="iiitem.urlclassId" :key="iiitem" @click="getUrlList(iiitem.urlclassId)">{{iiitem.name}}{{iiitem.urlclassId}}</el-menu-item>
-                                </template>
-                            </el-submenu>
-                        </template>
+                        <!-- 无子的一级导航 -->
                         <template v-else>
-                            <el-menu-item v-for="(iitem) in item.chindren"  :index="iitem.urlclassId" :key="iitem.urlclassId" @click="getUrlList(iiitem)">{{iitem.name}}{{iitem.urlclassId}}</el-menu-item>
+                            <el-menu-item :index="item.urlclassId" @click="getUrlList(item)">
+                                <i class="el-icon-menu"></i>
+                                <span slot="title">{{item.name}}</span>
+                            </el-menu-item>
                         </template>
-                    </el-submenu>
+                    </div>
                 </el-menu>
                 <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
                     <!-- <el-radio-button :label="false">展开</el-radio-button>
@@ -31,37 +47,39 @@
                     <el-radio-button :label="true" v-show="!isCollapse"><i class="el-icon-s-fold"></i></el-radio-button>
                 </el-radio-group>
             </el-aside>
+            <!-- 右侧内容区 -->
             <el-main>
+                <!-- PageHeader 页头 -->
+                <el-page-header @back="goBack" content="所有资源"></el-page-header>
+                <!-- 卡片内容 -->
                 <el-row :gutter="20">
-                        <template v-if="urlList.length > 0">
-                            <el-col :span="6" v-for="item in urlList" :key="item.urlclassId">
-                                <el-card class="box-card" shadow="hover" @click="openUrl">
-                                    <div slot="header" class="clearfix">
-                                        <span>{{item.name}}</span>
-                                        <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-                                    </div>
-                                    <div class="text item">
-                                        {{item.content}}
-                                    </div>
-                                    <!-- <div v-for="o in 4" :key="o" class="text item">
-                                        {{'列表内容 ' + o }}
-                                    </div> -->
-                                </el-card>
-                            </el-col>
-                        </template>
+                    <template v-if="urlList.length > 0">
+                        <el-col :span="6" v-for="item in urlList" :key="item.urlclassId">
+                            <!-- 卡片；@click.native 的作用：给组件绑定原生事件 -->
+                            <el-card class="box-card url-box-card"  @click.native="openUrl(item.url)" shadow="hover" >
+                                <div slot="header" class="clearfix">
+                                    <span>{{item.name}}</span>
+                                    <!-- <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button> -->
+                                </div>
+                                <div class="text item">
+                                    {{item.content}}
+                                </div>
+                                <!-- <div v-for="o in 4" :key="o" class="text item">
+                                    {{'列表内容 ' + o }}
+                                </div> -->
+                            </el-card>
+                        </el-col>
+                    </template>
                 </el-row>
                 <nav-footer></nav-footer>
             </el-main>
         </el-container>
-    </div>
+    <!-- </div> -->
 </template>
 <style lang="scss">
 @import './../assets/scss/base.scss';
 @import './../assets/scss/mixin.scss';
 @import './../assets/scss/config.scss';
-.container{
-    padding-top: 61px!important;
-}
 // 左导航-开始
 .el-aside,.el-main{
     height: calc(100vh - 61px)!important;
@@ -133,6 +151,9 @@
 // 布局开始
 .el-row {
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     &:last-child {
       margin-bottom: 0;
     }
@@ -157,11 +178,16 @@
     padding: 10px 0;
     background-color: #f9fafc;
   }
+  .el-page-header{
+      margin-bottom:20px ;
+  }
 // 布局结束
 // 卡片-开始
 .el-card{
     display: inline-block !important;
     width: 100%;
+}
+.url-box-card{
     cursor: pointer;
 }
 .text {
@@ -180,6 +206,9 @@
 }
 .box-card {
     // width: 400px;
+}
+.el-card__header {
+    padding: 10px 20px!important;
 }
 // 卡片-结束
 </style>
@@ -202,13 +231,14 @@
                 urlList:[],
             };
         },
-        computed:{
-
-        },
+        // computed:{
+        //     urlList
+        // },
         // 相当于ready，初始化调用的方法，要调用methods中定义的方法
         mounted(){
             this.getSelectUrlclassTree()
-            this.getUrlList()
+            this.urlAllList()
+            // this.getUrlList({urlclassId:8})
         },
         methods: {
             handleOpen(key, keyPath) {
@@ -232,8 +262,16 @@
                     console.log(res.data.chindren)
                 })
             },
-            getUrlList(){
-                this.axios.get(`/urlList/${iiitem.urlclassId}`,{
+            urlAllList(){
+                this.axios.get(`/urlAllList`,{
+                }).then((res)=>{
+                    this.urlList=res.data;
+                    console.log(res.data)
+                })
+            },
+            getUrlList(item){
+                console.log(`/urlList/${item.urlclassId}`)
+                this.axios.get(`/urlList/${item.urlclassId}`,{
                     // params:{
                     //     urlclassId:'2',
                     // }
@@ -242,8 +280,12 @@
                     console.log(res.data)
                 })
             },
-            openUrl(){
-
+            openUrl(url){
+                // window.location.href=url;
+                window.open(url, '_blank').location;
+            },
+            goBack() {
+                console.log('go back');
             }
         },
         Container,

@@ -287,7 +287,7 @@ router.get('/leftSubmenuList', async function(req, res, next) {
       }
       // console.log('data:',data)
       // console.log('temp:',temp)
-    return result;
+      return result;
     }
     var selectUrlclassTree=translateData(JSON.parse(selectUrlclassList), 'urlclassId', 'parentId', 'chindren')
     
@@ -307,6 +307,19 @@ router.get('/urlList/:urlclassId', async function(req, res, next) {
       });
       console.log('urlList:',urlList)
     res.json(urlList);
+  }catch(err){
+    console.error('/error',err);
+  }
+});
+// 获取全部urlList
+router.get('/urlAllList', async function(req, res, next) {
+  try{
+      var urlAllList= await db.selectAllUrlList().catch((err) => {
+        console.error(err);
+        throw err;
+      });
+      console.log('urlAllList:',urlAllList)
+    res.json(urlAllList);
   }catch(err){
     console.error('/error',err);
   }

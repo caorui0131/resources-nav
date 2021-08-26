@@ -38,8 +38,15 @@ function selectUrlclassList(){
   })
 };
 function selectUrlList(urlclassId){
-  console.log('urlclassId:',urlclassId)
+  // console.log('urlclassId:',urlclassId)
   const sql = 'select * from urls INNER JOIN urlclass2urls on urlclass2urls.urlId=urls.urlId where urlclass2urls.urlclassId= '+urlclassId+' order by urlclass2urls.sort desc;'
+  return exec(sql).then(rows => {
+    // console.log(rows);
+    return rows
+  })
+};
+function selectAllUrlList(){
+  const sql = 'select * from urls;'
   return exec(sql).then(rows => {
     // console.log(rows);
     return rows
@@ -49,4 +56,5 @@ module.exports = {
   // url
   selectUrlList,
   selectUrlclassList,
+  selectAllUrlList,
 };

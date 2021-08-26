@@ -1,8 +1,9 @@
 <template>
     <div>
         <nav-header></nav-header>
-        <router-view>
-        </router-view>
+        <div class="container">
+            <router-view></router-view>
+        </div>
         <!-- <nav-footer></nav-footer> -->
     </div>
 </template>
@@ -12,7 +13,11 @@
     background-color: #ffffff;
 }
 .el-header{
-    line-height: 61px;
+    // line-height: 61px;
+    height: 61px;
+}
+.container{
+    padding-top: 61px!important;
 }
 .el-footer {
     background-color: #B3C0D1;
