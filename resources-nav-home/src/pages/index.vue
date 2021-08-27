@@ -48,31 +48,7 @@
                 </el-radio-group>
             </el-aside>
             <!-- 右侧内容区 -->
-            <el-main>
-                <!-- PageHeader 页头 -->
-                <el-page-header @back="goBack" content="所有资源"></el-page-header>
-                <!-- 卡片内容 -->
-                <el-row :gutter="20">
-                    <template v-if="urlList.length > 0">
-                        <el-col :span="6" v-for="item in urlList" :key="item.urlclassId">
-                            <!-- 卡片；@click.native 的作用：给组件绑定原生事件 -->
-                            <el-card class="box-card url-box-card"  @click.native="openUrl(item.url)" shadow="hover" >
-                                <div slot="header" class="clearfix">
-                                    <span>{{item.name}}</span>
-                                    <!-- <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button> -->
-                                </div>
-                                <div class="text item">
-                                    {{item.content}}
-                                </div>
-                                <!-- <div v-for="o in 4" :key="o" class="text item">
-                                    {{'列表内容 ' + o }}
-                                </div> -->
-                            </el-card>
-                        </el-col>
-                    </template>
-                </el-row>
-                <nav-footer></nav-footer>
-            </el-main>
+            <url-list></url-list>
         </el-container>
     <!-- </div> -->
 </template>
@@ -186,45 +162,18 @@
     display: none ;
   }
 // 布局结束
-// 卡片-开始
-.el-card{
-    display: inline-block !important;
-    width: 100%;
-}
-.url-box-card{
-    cursor: pointer;
-}
-.text {
-    font-size: 14px;
-}
-.item {
-    margin-bottom: 18px;
-}
-.clearfix:before,
-.clearfix:after {
-    display: table;
-    content: "";
-}
-.clearfix:after {
-    clear: both
-}
-.box-card {
-    // width: 400px;
-}
-// .el-card__header {
-//     padding: 10px 20px!important;
-// }
-// 卡片-结束
 </style>
 <script>
     import { Container } from 'element-ui'
-    import NavFooter from './../components/NavFooter'
+    import UrlList from './../components/UrlList'
+    // import NavFooter from './../components/NavFooter'
     // import $ from 'jquery'
     export default{
         // 组件名称，加载组件时引用的值
         name:'index',
         components:{
-            NavFooter 
+            // NavFooter 
+            UrlList
         },
         // 定义局部的，防止篡改
         data() {
@@ -232,7 +181,6 @@
             return {
                 isCollapse: false,
                 selectUrlclassTree:[],
-                urlList:[],
             };
         },
         // computed:{
@@ -241,7 +189,6 @@
         // 相当于ready，初始化调用的方法，要调用methods中定义的方法
         mounted(){
             this.getSelectUrlclassTree()
-            this.urlAllList()
             // this.getUrlList({urlclassId:8})
         },
         methods: {
@@ -266,31 +213,6 @@
                     console.log(res.data.chindren)
                 })
             },
-            urlAllList(){
-                this.axios.get(`/urlAllList`,{
-                }).then((res)=>{
-                    this.urlList=res.data;
-                    console.log(res.data)
-                })
-            },
-            getUrlList(item){
-                console.log(`/urlList/${item.urlclassId}`)
-                this.axios.get(`/urlList/${item.urlclassId}`,{
-                    // params:{
-                    //     urlclassId:'2',
-                    // }
-                }).then((res)=>{
-                    this.urlList=res.data;
-                    console.log(res.data)
-                })
-            },
-            openUrl(url){
-                // window.location.href=url;
-                window.open(url, '_blank').location;
-            },
-            goBack() {
-                console.log('go back');
-            }
         },
         Container,
     }
