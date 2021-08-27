@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Home from './pages/home';
 import Index from './pages/index';
 import addResource from './pages/addResource';
+import Account from './pages/account';
 
 // 加载插件的固定语法：同vue加载Router插件
 Vue.use(Router);
@@ -26,6 +27,11 @@ export default new Router ({
                     path:'/index', 
                     name:'index', 
                     component: Index,
+                },
+                {
+                    path:'/account', 
+                    name:'account', 
+                    component: Account,
                 }
             ],
         },{

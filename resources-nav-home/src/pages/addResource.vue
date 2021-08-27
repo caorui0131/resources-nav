@@ -12,13 +12,13 @@
                             <el-form-item label="名称" prop="name">
                                 <el-input v-model="ruleForm.name"></el-input>
                             </el-form-item>
-                            <el-form-item label="描述" prop="desc">
-                                <el-input type="textarea" v-model="ruleForm.desc"></el-input>
+                            <el-form-item label="描述" prop="content">
+                                <el-input type="textarea" v-model="ruleForm.content"></el-input>
                             </el-form-item>
-                            <el-form-item label="链接" prop="name">
-                                <el-input v-model="ruleForm.name"></el-input>
+                            <el-form-item label="链接" prop="url">
+                                <el-input v-model="ruleForm.url"></el-input>
                             </el-form-item>
-                            <el-form-item label="图标" prop="name">
+                            <!-- <el-form-item label="图标" prop="name">
                                 <el-upload
                                 action="#"
                                 list-type="picture-card"
@@ -56,7 +56,7 @@
                                 <el-dialog :visible.sync="dialogVisible">
                                 <img width="100%" :src="dialogImageUrl" alt="">
                                 </el-dialog>
-                            </el-form-item>
+                            </el-form-item> -->
                             <el-form-item>
                                 <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
                                 <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -97,45 +97,77 @@
                 delivery: false,
                 type: [],
                 resource: '',
-                desc: '',
-                // 图片
-                dialogImageUrl: '',
-                dialogVisible: false,
-                disabled: false
-        },
-        rules: {
-          name: [
-            { required: true, message: '请输入活动名称', trigger: 'blur' },
-            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-          ],
-          region: [
-            { required: true, message: '请选择活动区域', trigger: 'change' }
-          ],
-          date1: [
-            { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
-          ],
-          date2: [
-            { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
-          ],
-          type: [
-            { type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }
-          ],
-          resource: [
-            { required: true, message: '请选择活动资源', trigger: 'change' }
-          ],
-          desc: [
-            { required: true, message: '请填写活动形式', trigger: 'blur' }
-          ]
-        }
-            };
+                content: '',
+                url:'',
+                // // 图片
+                // dialogImageUrl: '',
+                // dialogVisible: false,
+                // disabled: false
+            },
+            rules: {
+            name: [
+                { required: true, message: '请输入活动名称', trigger: 'blur' },
+                { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+            ],
+            region: [
+                { required: true, message: '请选择活动区域', trigger: 'change' }
+            ],
+            date1: [
+                { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+            ],
+            date2: [
+                { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
+            ],
+            type: [
+                { type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }
+            ],
+            resource: [
+                { required: true, message: '请选择活动资源', trigger: 'change' }
+            ],
+            content: [
+                { required: true, message: '请填写活动形式', trigger: 'blur' }
+            ],
+            url: [
+                { required: true, message: '请填写活动形式', trigger: 'blur' }
+            ]
+            }
+                };
         },
         mounted(){
         },
         methods: {
             submitForm(formName) {
+                console.log('this.:',this.ruleForm)
                 this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    alert('submit!');
+                    // alert('submit!');
+                    // console.log('ruleForm:',ruleForm)
+                    console.log('formName:',formName)
+                    console.log('this.$refs[formName]:',this.$refs[formName])
+                    console.log('this.$refs[formName]:',this.$refs[formName].children)
+                    this.axios.post('/addUrl',{
+                        url:{
+                            name:this.ruleForm.name,
+                            content:this.ruleForm.content,
+                            url:this.ruleForm.url,
+                            author:'曹蕊'
+                        }
+                    }).then((res)=>{
+                        console.log(res)
+                        if(res.data.status==200){
+                            this.$message({
+                                message: res.data.msg,
+                                type: 'success'
+                            });
+                            setTimeout(() => {
+                                this.$router.push('/')
+                            }, 2000);
+                        }else{
+                            this.$message.error(res.data.msg);
+                        }
+                    }).catch((err)=>{
+                        console.log(err)
+                    });
                 } else {
                     console.log('error submit!!');
                     return false;
@@ -146,16 +178,16 @@
                 this.$refs[formName].resetFields();
             },
             // 图片
-            handleRemove(file) {
-                console.log(file);
-            },
-            handlePictureCardPreview(file) {
-                this.dialogImageUrl = file.url;
-                this.dialogVisible = true;
-            },
-            handleDownload(file) {
-                console.log(file);
-            }
+            // handleRemove(file) {
+            //     console.log(file);
+            // },
+            // handlePictureCardPreview(file) {
+            //     this.dialogImageUrl = file.url;
+            //     this.dialogVisible = true;
+            // },
+            // handleDownload(file) {
+            //     console.log(file);
+            // }
         },
         Container,
     }

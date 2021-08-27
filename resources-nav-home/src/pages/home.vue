@@ -3,6 +3,7 @@
         <nav-header></nav-header>
         <div class="container">
             <router-view></router-view>
+            <el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop>
         </div>
         <!-- <nav-footer></nav-footer> -->
     </div>
@@ -43,7 +44,9 @@ body > .el-container {
 .el-container:nth-child(7) .el-aside {
     line-height: 320px;
 }
-
+.el-card__body{
+    // padding: 10px 20px!important;
+}
 </style>
 <script>
     // resources-nav-home\src\pages\index.vue,product.vue,detail.vue最后会嵌套进router-view中

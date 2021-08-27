@@ -6,7 +6,7 @@
             </div>
             <div class="header-center">
                 <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-                    <el-menu-item index="1">主页</el-menu-item>
+                    <el-menu-item index="1" @click="goToOrigin()">主页</el-menu-item>
                     <el-submenu index="2">
                         <template slot="title">资源</template>
                         <el-menu-item index="2-1">选项1</el-menu-item>
@@ -20,7 +20,7 @@
                         </el-submenu>
                     </el-submenu>
                     <el-menu-item index="3">排行</el-menu-item>
-                    <el-menu-item index="4">个人</el-menu-item>
+                    <el-menu-item index="4"  @click="goToAccount()">个人</el-menu-item>
                     <!-- <el-menu-item index="7" disabled>消息中心</el-menu-item>
                     <el-menu-item index="8"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item> -->
                 </el-menu>
@@ -91,7 +91,7 @@
 }
 </style>
 <script>
-    import { Message } from 'element-ui'
+    // import { Message } from 'element-ui'
     export default{
         // 组件名称，加载组件时引用的值
         name:'nav-header',
@@ -120,7 +120,7 @@
             },
             greet() {
                 // alert(5)
-                Message.warning('5555555')
+                // Message.warning('5555555')
             },
             goToCart(){
                 /**
@@ -131,6 +131,9 @@
             },
             goToAddResource(){
                 this.$router.push('/addResource');
+            },
+            goToAccount(){
+                this.$router.push('/account');
             }
         }
     }

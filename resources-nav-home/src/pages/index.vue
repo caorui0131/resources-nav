@@ -179,7 +179,11 @@
     background-color: #f9fafc;
   }
   .el-page-header{
-      margin-bottom:20px ;
+    margin-bottom:20px ;
+    font-weight: bold!important;
+  }
+  .el-page-header__left{
+    display: none ;
   }
 // 布局结束
 // 卡片-开始
@@ -207,9 +211,9 @@
 .box-card {
     // width: 400px;
 }
-.el-card__header {
-    padding: 10px 20px!important;
-}
+// .el-card__header {
+//     padding: 10px 20px!important;
+// }
 // 卡片-结束
 </style>
 <script>
