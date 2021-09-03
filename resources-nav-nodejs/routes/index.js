@@ -91,6 +91,20 @@ router.get('/urlAllList', async function(req, res, next) {
     console.error('/error',err);
   }
 });
+// 根据id查询url
+router.get('/selectUrl/:urlId', async function(req, res, next) {
+  let urlId = req.params.urlId || NULL;
+  try{
+    var selectUrl= await db.selectUrl(urlId).catch((err) => {
+      console.error(err);
+      throw err;
+    });
+    // console.log('urlAllList:',urlAllList)
+    res.json(selectUrl);
+  }catch(err){
+    console.error('/error',err);
+  }
+});
 // 添加url
 router.post('/addUrl', async function(req, res, next) {
   var url=req.body.url;

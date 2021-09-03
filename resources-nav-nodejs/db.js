@@ -52,6 +52,13 @@ function selectAllUrlList(){
     return rows
   })
 };
+function selectUrl(urlId){
+  const sql = 'select * from urls where urlId='+urlId+';'
+  return exec(sql).then(rows => {
+    // console.log(rows);
+    return rows
+  })
+};
 function addUrl(url){
   // console.log('urlclassId:',urlclassId)
   const sql = 'INSERT INTO `blog`.`urls` (`name`, `content`,`createtime`, `url`, `author`) VALUES ('+`'${url.name}','${url.content}','${formatDate(new Date())}','${url.url}','${url.author}'`+');'
@@ -70,7 +77,7 @@ function deleteUrl(urlId){
 };
 function updateUrl(url){
   // console.log('urlclassId:',urlclassId)
-  const sql = 'UPDATE urls SET '+`name=${url.name},content=${url.content},createtime=${formatDate(new Date())}, url=${url.url}, author=${url.author} where urlId =${url.urlId};`
+  const sql = 'UPDATE urls SET '+`name='${url.name}',content='${url.content}',createtime='${formatDate(new Date())}', url='${url.url}', author='${url.author}' where urlId =${url.urlId};`
   return exec(sql).then(rows => {
     // console.log(rows);
     return rows
@@ -81,6 +88,7 @@ module.exports = {
   selectUrlList,
   selectUrlclassList,
   selectAllUrlList,
+  selectUrl,
   addUrl,
   deleteUrl,
   updateUrl,

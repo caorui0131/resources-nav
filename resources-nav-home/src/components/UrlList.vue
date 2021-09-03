@@ -11,7 +11,7 @@
                         <el-col :span="6" v-for="item in urlList" :key="item.urlclassId">
                             <!-- 卡片；@click.native 的作用：给组件绑定原生事件 -->
                                 <!-- @click.native="openUrl(item.url)" -->
-                            <el-card class="box-card url-box-card" shadow="hover">
+                            <el-card class="box-card url-box-card urlList" shadow="hover">
                                 <div slot="header" class="clearfix" @click="openUrl(item.url)" >
                                     <div class="text item">
                                     <span>{{item.name}}</span>
@@ -24,7 +24,7 @@
                                     <el-button-group>
                                         <el-button icon="el-icon-delete" @click="deleteUrl(item.urlId)"></el-button>
                                         <!-- <el-button icon="el-icon-edit" @click="updateUrl(item)"></el-button> -->
-                                        <el-button icon="el-icon-edit" @click="dialogFormVisible = true"></el-button>
+                                        <el-button icon="el-icon-edit" @click="dialogFormVisible = true,selectUrlId=item.urlId"></el-button>
                                     </el-button-group>
                                 </div>
                             </el-card>
@@ -32,22 +32,8 @@
                     </template>
                 </el-row>
                 <!-- edit对话框 -->
-                <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
-                    <el-form :model="form">
-                        <el-form-item label="活动名称" :label-width="formLabelWidth">
-                        <el-input v-model="form.name" autocomplete="off"></el-input>
-                        </el-form-item>
-                        <el-form-item label="活动区域" :label-width="formLabelWidth">
-                        <el-select v-model="form.region" placeholder="请选择活动区域">
-                            <el-option label="区域一" value="shanghai"></el-option>
-                            <el-option label="区域二" value="beijing"></el-option>
-                        </el-select>
-                        </el-form-item>
-                    </el-form>
-                    <div slot="footer" class="dialog-footer">
-                        <el-button @click="dialogFormVisible = false">取 消</el-button>
-                        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
-                    </div>
+                <el-dialog title="编辑资源" :visible.sync="dialogFormVisible">
+                    <url-form getType='updateResource' :selectUrlId="selectUrlId"></url-form>
                 </el-dialog>
             </el-col>
         </el-row>
@@ -85,10 +71,10 @@
 .box-card {
     // width: 400px;
 }
-.el-card__body .item{
+.urlList .el-card__body .item{
     margin-bottom: 0px !important;
 }
-.el-card__body{
+.urlList .el-card__body{
     padding: 0px!important;
 }
 .el-button-group{
@@ -112,18 +98,21 @@
 <script>
     // import { Container } from 'element-ui'
     import NavFooter from './../components/NavFooter'
+    import UrlForm from './../components/UrlForm'
     // import $ from 'jquery'
     export default{
         // 组件名称，加载组件时引用的值
         name:'url-list',
         components:{
-            NavFooter 
+            NavFooter,
+            UrlForm
         },
         // 定义局部的，防止篡改
         data() {
             // return只允许当前页面使用
             return {
                 urlList:[],
+                selectUrlId:'',
                 dialogTableVisible: false,
                 dialogFormVisible: false,
                 form: {
@@ -167,6 +156,24 @@
             },
             goBack() {
                 console.log('go back');
+            },
+            deleteUrl(urlId){
+                this.axios.post('/deleteUrl',{
+                    urlId:urlId
+                }).then((res)=>{
+                    console.log(res)
+                    if(res.data.status==200){
+                        this.$message({
+                            message: res.data.msg,
+                            type: 'success'
+                        });
+                        this.urlAllList();
+                    }else{
+                        this.$message.error(res.data.msg);
+                    }
+                }).catch((err)=>{
+                    console.log(err)
+                });
             }
         }
     }
