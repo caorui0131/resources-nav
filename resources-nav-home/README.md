@@ -154,18 +154,24 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ├── public 公共目录
 │   └── 
 ├── src 前端项目主目录
-│   ├── assets 资源文件
-│       ├── base.scss 公共样式
-│       └── moxin.scss 把变量抽离出来，把样式定义成方法
-│   ├── components 组件
+│   ├── assets 资源文件(公共的，某一个组件的资源会放在组件的文件夹)
+│   │   ├── fonts 图标字体
+│   │   ├── img 图片
+│   │   ├── js js文件
+│   │   ├── scss样式
+│   │   ├── base.scss 公共样式
+│   │   └── moxin.scss 把变量抽离出来，把样式定义成方法
 │   ├── api 接口文档
 │   │   └── index.js整个项目的api请求
 │   ├── storage 数据存储的工具箱
 │   ├── pages 页面
-│   ├── 
+│   ├── components 公共的组件（多个页面之间都会使用的组件）
+│   ├── base 基础的组件（多个项目都会使用的组件，和业务逻辑没有任何关系）
+│   ├── pages 页面级组件
 │   ├── router.js 路由
 │   └── util 工具,公共的方法
-└── resource 资源
-    ├── reset.scss 覆盖网页内置样式
-    └── config.scss 项目架构的一部分，把常规、常用的颜色、字号抽出来
+├── resource 资源
+│   ├── reset.scss 覆盖网页内置样式
+│   └── config.scss 项目架构的一部分，把常规、常用的颜色、字号抽出来
+└── main.js 项目总入口
 ```

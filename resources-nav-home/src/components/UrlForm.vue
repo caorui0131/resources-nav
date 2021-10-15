@@ -1,61 +1,61 @@
 <template>
-                        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" >
-                           <!-- {{getType}} -->
-                           {{selectUrlId}}
-                            <el-form-item label="名称" prop="name" >
-                                <el-input v-model="ruleForm.name"></el-input>
-                                <!-- <el-input v-bind="selectUrl(selectUrlId)"></el-input> -->
-                            </el-form-item>
-                            <el-form-item label="描述" prop="content">
-                                <el-input type="textarea" v-model="ruleForm.content"></el-input>
-                            </el-form-item>
-                            <el-form-item label="链接" prop="url">
-                                <el-input v-model="ruleForm.url"></el-input>
-                            </el-form-item>
-                            <!-- <el-form-item label="图标" prop="name">
-                                <el-upload
-                                action="#"
-                                list-type="picture-card"
-                                :auto-upload="false">
-                                    <i slot="default" class="el-icon-plus"></i>
-                                    <div slot="file" slot-scope="{file}">
-                                    <img
-                                        class="el-upload-list__item-thumbnail"
-                                        :src="file.url" alt=""
-                                    >
-                                    <span class="el-upload-list__item-actions">
-                                        <span
-                                        class="el-upload-list__item-preview"
-                                        @click="handlePictureCardPreview(file)"
-                                        >
-                                        <i class="el-icon-zoom-in"></i>
-                                        </span>
-                                        <span
-                                        v-if="!disabled"
-                                        class="el-upload-list__item-delete"
-                                        @click="handleDownload(file)"
-                                        >
-                                        <i class="el-icon-download"></i>
-                                        </span>
-                                        <span
-                                        v-if="!disabled"
-                                        class="el-upload-list__item-delete"
-                                        @click="handleRemove(file)"
-                                        >
-                                        <i class="el-icon-delete"></i>
-                                        </span>
-                                    </span>
-                                    </div>
-                                </el-upload>
-                                <el-dialog :visible.sync="dialogVisible">
-                                <img width="100%" :src="dialogImageUrl" alt="">
-                                </el-dialog>
-                            </el-form-item> -->
-                            <el-form-item>
-                                <el-button type="primary" @click="submitForm('ruleForm',submitFormUrl)">提交</el-button>
-                                <el-button @click="resetForm('ruleForm')">重置</el-button>
-                            </el-form-item>
-                        </el-form>
+    <el-form v-model="ruleForm.name" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" >
+        <!-- {{getType}} -->
+        {{selectUrlId}}
+        <el-form-item label="名称" prop="name" >
+            <el-input v-model="ruleForm.name"></el-input>
+            <!-- <el-input v-bind="selectUrl(selectUrlId)"></el-input> -->
+        </el-form-item>
+        <el-form-item label="描述" prop="content">
+            <el-input type="textarea" v-model="ruleForm.content"></el-input>
+        </el-form-item>
+        <el-form-item label="链接" prop="url">
+            <el-input v-model="ruleForm.url"></el-input>
+        </el-form-item>
+        <!-- <el-form-item label="图标" prop="name">
+            <el-upload
+            action="#"
+            list-type="picture-card"
+            :auto-upload="false">
+                <i slot="default" class="el-icon-plus"></i>
+                <div slot="file" slot-scope="{file}">
+                <img
+                    class="el-upload-list__item-thumbnail"
+                    :src="file.url" alt=""
+                >
+                <span class="el-upload-list__item-actions">
+                    <span
+                    class="el-upload-list__item-preview"
+                    @click="handlePictureCardPreview(file)"
+                    >
+                    <i class="el-icon-zoom-in"></i>
+                    </span>
+                    <span
+                    v-if="!disabled"
+                    class="el-upload-list__item-delete"
+                    @click="handleDownload(file)"
+                    >
+                    <i class="el-icon-download"></i>
+                    </span>
+                    <span
+                    v-if="!disabled"
+                    class="el-upload-list__item-delete"
+                    @click="handleRemove(file)"
+                    >
+                    <i class="el-icon-delete"></i>
+                    </span>
+                </span>
+                </div>
+            </el-upload>
+            <el-dialog :visible.sync="dialogVisible">
+            <img width="100%" :src="dialogImageUrl" alt="">
+            </el-dialog>
+        </el-form-item> -->
+        <el-form-item>
+            <el-button type="primary" @click="submitForm('ruleForm',submitFormUrl)">提交</el-button>
+            <el-button @click="resetForm('ruleForm')">重置</el-button>
+        </el-form-item>
+    </el-form>
 </template>
 <style lang="scss">
 @import './../assets/scss/base.scss';
@@ -81,7 +81,8 @@
                 submitFormUrl:this.getType,
                 ruleForm: {
                     urlId:'',
-                    name:''||this.selectUrl(this.selectUrlId),
+                    // name:''||this.selectUrl(this.selectUrlId),
+                    name:this.selectUrl(this.selectUrlId),
                     region: '',
                     date1: '',
                     date2: '',
@@ -184,6 +185,8 @@
                 }
                 });
             },
+            // resetForm() {
+            //     this.$refs.ruleForm.resetFields();
             resetForm(formName) {
                 this.$refs[formName].resetFields();
             },
