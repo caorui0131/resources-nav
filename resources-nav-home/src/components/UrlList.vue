@@ -32,8 +32,8 @@
                     </template>
                 </el-row>
                 <!-- edit对话框 -->
-                <el-dialog title="编辑资源" :visible.sync="dialogFormVisible">
-                    <url-form getType='updateResource' :selectUrlId="selectUrlId"></url-form>
+                <el-dialog title="编辑资源" :visible.sync="dialogFormVisible" @close="close">
+                    <url-form getType='updateResource' :selectUrlId="selectUrlId" @refreshurllist="urlAllList" ref="urlform"></url-form>
                 </el-dialog>
             </el-col>
         </el-row>
@@ -174,7 +174,10 @@
                 }).catch((err)=>{
                     console.log(err)
                 });
-            }
+            },
+            close() {
+                this.$refs.urlform.selectUrl(this.selectUrlId)
+            },
         }
     }
 </script>

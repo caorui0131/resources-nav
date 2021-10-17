@@ -1,7 +1,7 @@
 <template>
-    <el-form v-model="ruleForm.name" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" >
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" >
         <!-- {{getType}} -->
-        {{selectUrlId}}
+        <!-- {{selectUrlId}} -->
         <el-form-item label="名称" prop="name" >
             <el-input v-model="ruleForm.name"></el-input>
             <!-- <el-input v-bind="selectUrl(selectUrlId)"></el-input> -->
@@ -70,6 +70,8 @@
         // 组件名称，加载组件时引用的值
         name:'url-form',
         props:["getType","selectUrlId"],
+        // emits:['refreshUrllist'],
+        emits:['refreshurllist'],
         components:{
         },
         // 定义局部的，防止篡改
@@ -81,8 +83,7 @@
                 submitFormUrl:this.getType,
                 ruleForm: {
                     urlId:'',
-                    // name:''||this.selectUrl(this.selectUrlId),
-                    name:this.selectUrl(this.selectUrlId),
+                    name:''||this.selectUrl(this.selectUrlId),
                     region: '',
                     date1: '',
                     date2: '',
@@ -125,9 +126,31 @@
                 }
             }
         },
-        mounted(){
+        // computed:{
+        watch:{
+            // 如果 `question` 发生改变，这个函数就会运行
+            selectUrlId: function (newQuestion, oldQuestion) {
+                let urlId=this.selectUrlId;
+                console.log('134urlId:',urlId,newQuestion,oldQuestion)
+                this.axios.get(`/selectUrl/${urlId}`,{
+                }).then((res)=>{
+                    console.log('137res:',res.data[0])
+                    this.ruleForm=res.data[0]
+                    // return this.ruleForm.name=res.data[0].name;
+                    // this.url=res.data[0];
+                    // console.log(res.data[0].name)
+                    // this.ruleForm.name=res.data[0].name;
+                    // this.ruleForm.content=res.data[0].content;
+                    // this.ruleForm.url=res.data[0].url;
+                    // this.ruleForm.urlId=res.data[0].urlId;
+                    // this.submitFormUrl='updateUrl';
+                })
+            }
+        },
+        // mounted(){
+        beforeMount(){
             if(this.getType=='updateResource'){
-                // alert(this.urlId)
+                // alert(this.selectUrlId)
                 // this.selectUrl(this.selectUrlId)
             }
         },
@@ -170,6 +193,7 @@
                                 message: res.data.msg,
                                 type: 'success'
                             });
+                            this.$emit('refreshurllist')
                             // setTimeout(() => {
                             //     this.$router.push('/')
                             // }, 2000);
