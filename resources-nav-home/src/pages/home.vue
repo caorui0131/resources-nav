@@ -8,45 +8,45 @@
         <!-- <nav-footer></nav-footer> -->
     </div>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 // @import url("//unpkg.com/element-ui@2.15.5/lib/theme-chalk/index.css");
-.el-header{
-    background-color: #ffffff;
-}
-.el-header{
-    // line-height: 61px;
-    height: 61px;
-}
+// .el-header{
+//     background-color: #ffffff;
+// }
+// .el-header{
+//     // line-height: 61px;
+//     height: 61px;
+// }
 .container{
     padding-top: 61px!important;
 }
-.el-footer {
-    background-color: #B3C0D1;
-    color: #333;
-    text-align: center;
+// .el-footer {
+//     background-color: #B3C0D1;
+//     color: #333;
+//     text-align: center;
     
-}
-.el-aside {
-    background-color: #D3DCE6;
-    color: #333;
-}
-.el-main {
-    background-color: #E9EEF3;
-    color: #333;
-}
-body > .el-container {
-    margin-bottom: 40px;
-}
-.el-container:nth-child(5) .el-aside,
-.el-container:nth-child(6) .el-aside {
-    line-height: 260px;
-}
-.el-container:nth-child(7) .el-aside {
-    line-height: 320px;
-}
-.el-card__body{
+// }
+// .el-aside {
+//     background-color: #D3DCE6;
+//     color: #333;
+// }
+// .el-container:nth-child(5) .el-aside,
+// .el-container:nth-child(6) .el-aside {
+//     line-height: 260px;
+// }
+// .el-container:nth-child(7) .el-aside {
+//     line-height: 320px;
+// }
+// .el-main {
+//     background-color: #E9EEF3;
+//     color: #333;
+// }
+// body > .el-container {
+//     margin-bottom: 40px;
+// }
+// .el-card__body{
     // padding: 10px 20px!important;
-}
+// }
 </style>
 <script>
     // resources-nav-home\src\pages\index.vue,product.vue,detail.vue最后会嵌套进router-view中

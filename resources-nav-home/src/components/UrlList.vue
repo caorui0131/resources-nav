@@ -42,6 +42,7 @@
 </template>
 
 <style lang="scss">
+// <style lang="scss" scoped>
 @import './../assets/scss/base.scss';
 @import './../assets/scss/mixin.scss';
 @import './../assets/scss/config.scss';
@@ -136,18 +137,13 @@
                 this.axios.get(`/urlAllList`,{
                 }).then((res)=>{
                     this.urlList=res.data;
-                    console.log(res.data)
                 })
             },
             getUrlList(item){
-                console.log(`/urlList/${item.urlclassId}`)
+                // console.log(`/urlList/${item.urlclassId}`)
                 this.axios.get(`/urlList/${item.urlclassId}`,{
-                    // params:{
-                    //     urlclassId:'2',
-                    // }
                 }).then((res)=>{
                     this.urlList=res.data;
-                    console.log(res.data)
                 })
             },
             openUrl(url){
@@ -161,7 +157,7 @@
                 this.axios.post('/deleteUrl',{
                     urlId:urlId
                 }).then((res)=>{
-                    console.log(res)
+                    // console.log(res)
                     if(res.data.status==200){
                         this.$message({
                             message: res.data.msg,

@@ -3,7 +3,7 @@
         Footer
     </div>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 .footer{
     padding: 0px;
     flex: 0 0 auto;

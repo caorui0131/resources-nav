@@ -8,7 +8,7 @@
             <el-row>
                 <el-col  :span="24">
                     <el-card class="box-card" shadow="never">
-                        <url-form getType='addResource'></url-form>
+                        <url-form getType='addUrl'></url-form>
                     </el-card>
                 </el-col>
             </el-row>
@@ -16,7 +16,7 @@
         </el-main>
     </el-container>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 @import './../assets/scss/base.scss';
 @import './../assets/scss/mixin.scss';
 @import './../assets/scss/config.scss';

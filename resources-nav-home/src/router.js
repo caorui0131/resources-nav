@@ -4,12 +4,15 @@ import Home from './pages/home';
 import Index from './pages/index';
 import addResource from './pages/addResource';
 import Account from './pages/account';
+import login from './pages/login';
 
 // 加载插件的固定语法：同vue加载Router插件
 Vue.use(Router);
 
+
 // vue的Router语法，export导入一个对象
-export default new Router ({
+// export default new Router ({
+const router = new Router ({
     // 路由的配置
     // routes:配置子路由
     routes:[
@@ -45,6 +48,25 @@ export default new Router ({
                     component: addResource,
                 }
             ],
+        },{
+            path:'/login', 
+            name:'login', 
+            component: login,
         }
     ]
 });
+
+// 全局前置守卫 教程https://router.vuejs.org/zh/guide/advanced/navigation-guards.html
+// 每一次进行路由跳转之前都执行的方法
+router.beforeEach((to,from,next)=>{
+    console.log(to,from);
+    // const isLogin=false;
+    const isLogin=localStorage.isLogin;
+    if(isLogin||to.name==="login"){
+        next();
+    }else{
+        next({name:'login'})
+    }
+})
+
+export default router;

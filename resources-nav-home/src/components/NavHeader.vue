@@ -44,7 +44,7 @@
 
     </div>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 @import './../assets/scss/base.scss';
 @import './../assets/scss/mixin.scss';
 @import './../assets/scss/config.scss';
@@ -74,6 +74,13 @@
     padding: 0 0px!important;
     border-bottom: solid 1px #e6e6e6;
     padding:0px 16px!important;
+}
+.el-header{
+    background-color: #ffffff;
+}
+.el-header{
+    // line-height: 61px;
+    height: 61px;
 }
 .el-menu.el-menu--horizontal{
     border-bottom:none!important;

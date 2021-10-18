@@ -6,10 +6,12 @@ import axios from 'axios'
 // * vue-axios
 //   * 把axios的作用域对象挂载到vue实例上，方便用this调用
 import VueAxios from 'vue-axios'
-import ElementUI from 'element-ui';
+import ElementUI from 'element-ui'
 // // 按需加载
 // import { Message } from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css';
+import 'element-ui/lib/theme-chalk/index.css'
+// 在开发移动端项目时让我们写的样式在所有浏览器上保持一致(不同浏览器默认的标签展示行为不一致）
+import 'normalize.css'
 // 组件
 // 写成import store from './store'也可以，默认会读取index.js
 import store from './store/index' 

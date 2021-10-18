@@ -54,3 +54,11 @@ input{
     }
   }
 }
+// 公共布局
+.el-main {
+  background-color: #E9EEF3;
+  color: #333;
+}
+body > .el-container {
+  margin-bottom: 40px;
+}

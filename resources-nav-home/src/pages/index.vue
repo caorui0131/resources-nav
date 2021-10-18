@@ -52,7 +52,8 @@
         </el-container>
     <!-- </div> -->
 </template>
-<style lang="scss">
+<style lang="scss" >
+// <style lang="scss" scoped>
 @import './../assets/scss/base.scss';
 @import './../assets/scss/mixin.scss';
 @import './../assets/scss/config.scss';
@@ -63,6 +64,17 @@
 }
 .el-aside{
     width:auto!important;
+}
+.el-aside {
+    background-color: #D3DCE6;
+    color: #333;
+}
+.el-container:nth-child(5) .el-aside,
+.el-container:nth-child(6) .el-aside {
+    line-height: 260px;
+}
+.el-container:nth-child(7) .el-aside {
+    line-height: 320px;
 }
 .el-main{
     height:2000px;

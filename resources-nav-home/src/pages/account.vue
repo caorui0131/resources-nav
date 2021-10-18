@@ -2,11 +2,11 @@
     <el-container>
         <!-- 左侧树状导航 -->
         <!-- 右侧内容区 -->
-        <el-aside></el-aside>
+        <!-- <el-aside></el-aside> -->
         <url-list></url-list>
     </el-container>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 </style>
 <script>
     // import $ from 'jquery'

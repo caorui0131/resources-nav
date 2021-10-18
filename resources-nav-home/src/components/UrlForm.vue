@@ -57,7 +57,7 @@
         </el-form-item>
     </el-form>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
 @import './../assets/scss/base.scss';
 @import './../assets/scss/mixin.scss';
 @import './../assets/scss/config.scss';
@@ -129,12 +129,12 @@
         // computed:{
         watch:{
             // 如果 `question` 发生改变，这个函数就会运行
-            selectUrlId: function (newQuestion, oldQuestion) {
+            selectUrlId: function () {
                 let urlId=this.selectUrlId;
-                console.log('134urlId:',urlId,newQuestion,oldQuestion)
+                // console.log('134urlId:',urlId,newQuestion,oldQuestion)
                 this.axios.get(`/selectUrl/${urlId}`,{
                 }).then((res)=>{
-                    console.log('137res:',res.data[0])
+                    // console.log('137res:',res.data[0])
                     this.ruleForm=res.data[0]
                     // return this.ruleForm.name=res.data[0].name;
                     // this.url=res.data[0];
@@ -143,7 +143,7 @@
                     // this.ruleForm.content=res.data[0].content;
                     // this.ruleForm.url=res.data[0].url;
                     // this.ruleForm.urlId=res.data[0].urlId;
-                    // this.submitFormUrl='updateUrl';
+                    this.submitFormUrl='updateUrl';
                 })
             }
         },
@@ -156,38 +156,63 @@
         },
         methods: {
             selectUrl(urlId){
-                console.log(`/selectUrl/${urlId}`)
                 this.axios.get(`/selectUrl/${urlId}`,{
                 }).then((res)=>{
-                    this.url=res.data[0];
-                    console.log(res.data[0].name)
-                    this.ruleForm.name=res.data[0].name;
-                    this.ruleForm.content=res.data[0].content;
-                    this.ruleForm.url=res.data[0].url;
-                    this.ruleForm.urlId=res.data[0].urlId;
+                    console.log('161',res.data[0])
+                    this.ruleForm=res.data[0];
+                    // this.url=res.data[0];
+                    // console.log(res.data[0].name)
+                    // this.ruleForm.name=res.data[0].name;
+                    // this.ruleForm.content=res.data[0].content;
+                    // this.ruleForm.url=res.data[0].url;
+                    // this.ruleForm.urlId=res.data[0].urlId;
                     this.submitFormUrl='updateUrl';
                 })
             },
             submitForm(formName,submitFormUrl) {
-                console.log('this.:',this.ruleForm)
-                console.log('submitFormUrl.:',this.submitFormUrl)
+                console.log('submitForm------------:',submitFormUrl)
                 this.$refs[formName].validate((valid) => {
                 if (valid) {
                     // alert('submit!');
                     // console.log('ruleForm:',ruleForm)
-                    console.log('formName:',formName)
-                    console.log('this.$refs[formName]:',this.$refs[formName])
-                    console.log('this.$refs[formName]:',this.$refs[formName].children)
-                    this.axios.post(submitFormUrl,{
-                        url:{
-                            name:this.ruleForm.name,
-                            content:this.ruleForm.content,
-                            url:this.ruleForm.url,
-                            author:'曹蕊',
-                            urlId:this.ruleForm.urlId,
-                        }
-                    }).then((res)=>{
-                        console.log(res)
+                    // console.log('formName:',formName)
+                    // console.log('this.$refs[formName]:',this.$refs[formName])
+                    // console.log('this.$refs[formName]:',this.$refs[formName].children)
+                    if(submitFormUrl=='addUrl'){
+                        this.axios.post(submitFormUrl,{
+                            url:{
+                                name:this.ruleForm.name,
+                                content:this.ruleForm.content,
+                                url:this.ruleForm.url,
+                                author:'曹蕊',
+                                // urlId:this.ruleForm.urlId,
+                            }
+                        }).then((res)=>{
+                            if(res.data.status==200){
+                                this.$message({
+                                    message: res.data.msg,
+                                    type: 'success'
+                                });
+                                this.$emit('refreshurllist')
+                                // setTimeout(() => {
+                                //     this.$router.push('/')
+                                // }, 2000);
+                            }else{
+                                this.$message.error(res.data.msg);
+                            }
+                        }).catch((err)=>{
+                            console.log(err)
+                        });
+                    }else{
+                        this.axios.post(submitFormUrl,{
+                            url:{
+                                name:this.ruleForm.name,
+                                content:this.ruleForm.content,
+                                url:this.ruleForm.url,
+                                author:'曹蕊',
+                                urlId:this.ruleForm.urlId,
+                            }
+                        }).then((res)=>{
                         if(res.data.status==200){
                             this.$message({
                                 message: res.data.msg,
@@ -203,6 +228,31 @@
                     }).catch((err)=>{
                         console.log(err)
                     });
+                    }
+                    // this.axios.post(submitFormUrl,{
+                    //     url:{
+                    //         name:this.ruleForm.name,
+                    //         content:this.ruleForm.content,
+                    //         url:this.ruleForm.url,
+                    //         author:'曹蕊',
+                    //         urlId:this.ruleForm.urlId,
+                    //     }
+                    // }).then((res)=>{
+                    //     if(res.data.status==200){
+                    //         this.$message({
+                    //             message: res.data.msg,
+                    //             type: 'success'
+                    //         });
+                    //         this.$emit('refreshurllist')
+                    //         // setTimeout(() => {
+                    //         //     this.$router.push('/')
+                    //         // }, 2000);
+                    //     }else{
+                    //         this.$message.error(res.data.msg);
+                    //     }
+                    // }).catch((err)=>{
+                    //     console.log(err)
+                    // });
                 } else {
                     console.log('error submit!!');
                     return false;

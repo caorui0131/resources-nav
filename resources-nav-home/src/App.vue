@@ -6,9 +6,6 @@
   </div>
 </template>
 
-<style>
-</style>
-
 <script>
 // router-view 是视图，app里面的web view，可以加载所有的子页面（所有页面都必须经过他），放在这可以嵌套其他的组件
 // import HelloWorld from './components/HelloWorld.vue'
@@ -41,8 +38,8 @@ export default {
 }
 </script>
 
-
-<style lang="scss">
+<style lang="scss" scoped>
+/* scoped ：我的样式只对我的组件有效*/
 /* @import 导入css,和js导入不一样不需要from，from 把一个js对象/变量 变成一个对象*/
 @import './assets/scss/reset.scss';
 @import './assets/scss/config.scss';
