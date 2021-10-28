@@ -64,7 +64,6 @@
 // 卡片-结束
 </style>
 <script>
-    import { Container } from 'element-ui'
     // import $ from 'jquery'
     export default{
         // 组件名称，加载组件时引用的值
@@ -276,7 +275,6 @@
             //     console.log(file);
             // }
         },
-        Container,
     }
 </script>
 

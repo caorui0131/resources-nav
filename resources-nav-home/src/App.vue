@@ -15,13 +15,12 @@
 export default {
   name: 'app',
   components: {
-    
   },
-  data(){
+  data () {
     // return{
     // }
   },
-  mounted(){
+  mounted () {
     // // 本地加载请求静态json文件的形式
     // this.axios.get('/mock/user/login.json').then((res)=>{
     //   this.res=res;

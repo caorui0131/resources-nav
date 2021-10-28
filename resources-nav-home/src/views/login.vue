@@ -2,34 +2,42 @@
   <div @click="handleLogin">登录</div>
 </template>
 <script>
+import { getCurrentInstance } from 'vue'
 export default {
   name: 'login',
-  // setup(){
-  //   const {onBeforeMount}='vue';
-  //   // this.scroll=new BetterScroll(this.$refs.wrapper,{
-  //   //   click:true
-  //   // })
-  //   const handleLogin = ()=> {
-  //     console.log('1111111111111')
-  //     // localStorage.isLogin=true;
-  //   }
-  //   onBeforeMount(()=> {
-  //     console.log('onBeforeMount')
-  //   })
-  //   return{ handleLogin}
+  // setup () {
+  //   const { proxy } = getCurrentInstance()
+  //   console.log(proxy.$root.$route)
+  //   console.log(proxy.$root.$router)
+  //   return {}
+
   // }
-  data(){
-    return {
-      username:'',
-      password:'',
-      userId:''
-    }
-  },
-  methods:{
-    handleLogin(){
+  setup(){
+    // const {onBeforeMount}='vue';
+    // this.scroll=new BetterScroll(this.$refs.wrapper,{
+    //   click:true
+    // })
+    const handleLogin = ()=> {
       console.log('1111111111111')
       localStorage.isLogin=true;
     }
+    // onBeforeMount(()=> {
+    //   console.log('onBeforeMount')
+    // })
+    return{ handleLogin}
+  // }
+  // data(){
+  //   return {
+  //     username:'',
+  //     password:'',
+  //     userId:''
+  //   }
+  // },
+  // methods:{
+  //   handleLogin(){
+  //     console.log('1111111111111')
+  //     localStorage.isLogin=true;
+  //   }
   //   login(){
   //     let { username,password } = this;
   //     this.axios.post('/user/login',{

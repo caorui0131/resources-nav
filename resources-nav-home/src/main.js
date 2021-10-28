@@ -1,15 +1,14 @@
 // * 插件和组件：引用时插件在上组件在下，没有./会被认为是插件，去npm里面找
 // 插件
-import Vue from 'vue'
+import { createApp } from 'vue'
 import router from './router'
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 import axios from 'axios'
 // * vue-axios
 //   * 把axios的作用域对象挂载到vue实例上，方便用this调用
 import VueAxios from 'vue-axios'
-import ElementUI from 'element-ui'
 // // 按需加载
-// import { Message } from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
 // 在开发移动端项目时让我们写的样式在所有浏览器上保持一致(不同浏览器默认的标签展示行为不一致）
 import 'normalize.css'
 // 组件
@@ -17,7 +16,7 @@ import 'normalize.css'
 import store from './store/index' 
 import App from './App.vue'
 
-Vue.use(ElementUI);
+// Vue.use(ElementUI);
 // ElementUI.Message.success('666')
 // import env from './env'
 /**
@@ -57,14 +56,16 @@ axios.defaults.timeout=8000;
 // });
 // * vue.use：注册。加载插件，类似nodejs的app.use，可以应用一个中间件。
 // 把axios挂载到VueAxios上
-Vue.use(VueAxios,axios)
+// Vue.use(VueAxios,axios)
 
 // 生产环境关闭 提示，开启则vue底层的console、info会打印 
-Vue.config.productionTip = false
+// Vue.config.productionTip = false
 
-new Vue({
-  // key 和 value 一样时可以只写一个
-  router,
-  store,
-  render: h => h(App),
-}).$mount('#app')
+// new Vue({
+//   // key 和 value 一样时可以只写一个
+//   router,
+//   store,
+//   render: h => h(App),
+// }).$mount('#app')
+// createApp(App).use(store).use(router).use(ElementUI).mount('#app')
+createApp(App).use(store).use(router).use(ElementPlus).use(VueAxios,axios).mount('#app')

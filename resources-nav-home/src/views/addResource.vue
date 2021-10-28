@@ -23,7 +23,6 @@
 // 卡片-结束
 </style>
 <script>
-    import { Container } from 'element-ui'
     import NavFooter from './../components/NavFooter'
     import UrlForm from './../components/UrlForm'
     // import $ from 'jquery'
@@ -46,7 +45,6 @@
         },
         methods: {
         },
-        Container,
     }
 </script>
 

@@ -1,15 +1,14 @@
 <template>
     <div>
-        <nav-header></nav-header>
+        <!-- <nav-header></nav-header> -->
         <div class="container">
             <router-view></router-view>
-            <el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop>
+            <!-- <el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop> -->
         </div>
         <!-- <nav-footer></nav-footer> -->
     </div>
 </template>
 <style lang="scss" scoped>
-// @import url("//unpkg.com/element-ui@2.15.5/lib/theme-chalk/index.css");
 // .el-header{
 //     background-color: #ffffff;
 // }

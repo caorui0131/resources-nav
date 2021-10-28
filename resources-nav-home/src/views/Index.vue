@@ -176,7 +176,7 @@
 // 布局结束
 </style>
 <script>
-    import { Container } from 'element-ui'
+    // import { Container } from 'element-plus'
     import UrlList from './../components/UrlList'
     // import NavFooter from './../components/NavFooter'
     // import $ from 'jquery'
@@ -226,6 +226,6 @@
                 })
             },
         },
-        Container,
+        // Container
     }
 </script>
