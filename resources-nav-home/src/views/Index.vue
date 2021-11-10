@@ -1,44 +1,98 @@
 <template>
+    
     <!-- <div class="container"> -->
         <el-container>
             <!-- 左侧树状导航 -->
             <el-aside>
-                <el-menu default-active="1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse" @select="select">
-                    <div v-for="(item) in selectUrlclassTree" :key="item.urlclassId">
+                    <!-- <el-radio-group v-model="isCollapse" style="margin-bottom: 20px">
+                        <el-radio-button :label="false">expand</el-radio-button>
+                        <el-radio-button :label="true">collapse</el-radio-button>
+                    </el-radio-group> -->
+                    <!-- <el-menu
+                        default-active="2"
+                        class="el-menu-vertical-demo"
+                        :collapse="isCollapse"
+                        @open="handleOpen"
+                        @close="handleClose"
+                    >
+                        <el-sub-menu index="1">
+                            <template #title>
+                                <el-icon><location /></el-icon>
+                                <span>Navigator One</span>
+                            </template>
+                            <el-menu-item-group>
+                                <template #title><span>Group One</span></template>
+                                <el-menu-item index="1-1">item one</el-menu-item>
+                                <el-menu-item index="1-2">item two</el-menu-item>
+                            </el-menu-item-group>
+                            <el-menu-item-group title="Group Two">
+                                <el-menu-item index="1-3">item three</el-menu-item>
+                            </el-menu-item-group>
+                            <el-sub-menu index="1-4">
+                                <template #title><span>item four</span></template>
+                                <el-menu-item index="1-4-1">item one</el-menu-item>
+                            </el-sub-menu>
+                        </el-sub-menu>
+                        <el-menu-item index="2">
+                            <el-icon><icon-menu /></el-icon>
+                            <template #title>Navigator Two</template>
+                        </el-menu-item>
+                        <el-menu-item index="3" disabled>
+                            <el-icon><document /></el-icon>
+                            <template #title>Navigator Three</template>
+                        </el-menu-item>
+                        <el-menu-item index="4">
+                            <el-icon><setting /></el-icon>
+                            <template #title>Navigator Four</template>
+                        </el-menu-item>
+                    </el-menu> -->
+                <el-menu :default-active="num" class="el-menu-vertical-demo"
+                    :collapse="isCollapse"
+                    @open="handleOpen"
+                    @close="handleClose" 
+                    @select="select"
+                >
+                    <template v-for="(item) in selectUrlclassTree" :key="item.urlclassId">
                         <!-- 有子的一级导航 -->
                         <template v-if="item&&item.chindren">
-                            <el-submenu  :index="item.urlclassId">
-                            <template slot="title">
-                                <i class="el-icon-location"></i>
-                                <span slot="title">{{item.name}}{{item.urlclassId}}</span>
-                            </template>
-                            <!-- 有子的二级导航 -->
-                            <template v-if="item.chindren&&item.chindren[0].chindren">
-                                <el-submenu :index="item.chindren[0].urlclassId">
-                                    <!-- <el-menu-item-group  v-for="(iitem) in item.chindren" :key="item.urlclassId">
-                                        <el-menu-item index="1-1">{{iitem.name}}</el-menu-item>
-                                    </el-menu-item-group> -->
-                                    <span slot="title" v-for="(iitem) in item.chindren" :key="iitem.urlclassId">{{iitem.name}}{{iitem.urlclassId}}</span>
-                                    <!--三级导航 -->
-                                    <template v-if="item.chindren[0].chindren">
-                                        <el-menu-item v-for="(iiitem) in item.chindren[0].chindren" :index="iiitem.urlclassId" :key="iiitem"  @click="getUrlList(iiitem)">{{iiitem.name}}{{iiitem.urlclassId}}</el-menu-item>
-                                    </template>
-                                </el-submenu>
-                            </template>
-                            <!-- 无子的二级导航 -->
-                            <template v-else>
-                                <el-menu-item v-for="(iitem) in item.chindren"  :index="iitem.urlclassId" :key="iitem.urlclassId"  @click="getUrlList(iitem)">{{iitem.name}}{{iitem.urlclassId}}</el-menu-item>
-                            </template>
-                        </el-submenu>
+                            <el-sub-menu  :index="item.urlclassId">
+                                <template #title>
+                                    <!-- <i class="el-icon-location"></i> -->
+                                    <el-icon><location /></el-icon>
+                                    <span>{{item.name}}{{item.urlclassId}}</span>
+                                </template>
+                                <!-- 有子的二级导航 -->
+                                <template v-if="item.chindren&&item.chindren[0].chindren">
+                                    <el-sub-menu :index="item.chindren[0].urlclassId">
+                                        <!-- <el-menu-item-group  v-for="(iitem) in item.chindren" :key="item.urlclassId">
+                                            <el-menu-item index="1-1">{{iitem.name}}</el-menu-item>
+                                        </el-menu-item-group> -->
+                                        <template #title>
+                                            <span  v-for="(iitem) in item.chindren" :key="iitem.urlclassId">{{iitem.name}}{{iitem.urlclassId}}</span>
+                                        </template>
+                                        <!--三级导航 -->
+                                        <template v-if="item.chindren[0].chindren">
+                                            <el-menu-item v-for="(iiitem) in item.chindren[0].chindren" :index="iiitem.urlclassId" :key="iiitem.urlclassId"  @click="getUrlList(iiitem)">{{iiitem.name}}{{iiitem.urlclassId}}</el-menu-item>
+                                        </template>
+                                    </el-sub-menu>
+                                </template>
+                                <!-- 无子的二级导航 -->
+                                <template v-else>
+                                    <el-menu-item v-for="(iitem) in item.chindren"  :index="iitem.urlclassId" :key="iitem.urlclassId"  @click="getUrlList(iitem)">
+                                        {{iitem.name}}{{iitem.urlclassId}}
+                                    </el-menu-item>
+                                </template>
+                            </el-sub-menu>
                         </template>
                         <!-- 无子的一级导航 -->
                         <template v-else>
-                            <el-menu-item :index="item.urlclassId" @click="getUrlList(item)">
-                                <i class="el-icon-menu"></i>
-                                <span slot="title">{{item.name}}</span>
+                            <el-menu-item :index="item.urlclassId" @click="getUrlList(item)" :classy='item.urlclassId'>
+                                <!-- <i class="el-icon-menu"></i> -->
+                                <el-icon><setting /></el-icon>
+                                <span>{{item.name}}{{item.urlclassId}}</span>
                             </el-menu-item>
                         </template>
-                    </div>
+                    </template>
                 </el-menu>
                 <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
                     <!-- <el-radio-button :label="false">展开</el-radio-button>
@@ -174,58 +228,142 @@
     display: none ;
   }
 // 布局结束
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
+}
 </style>
 <script>
     // import { Container } from 'element-plus'
     import UrlList from './../components/UrlList'
     // import NavFooter from './../components/NavFooter'
     // import $ from 'jquery'
-    export default{
-        // 组件名称，加载组件时引用的值
+    // export default{
+    //     // 组件名称，加载组件时引用的值
+    //     name:'index',
+    //     components:{
+    //         // NavFooter 
+    //         UrlList
+    //     },
+    //     // 定义局部的，防止篡改
+    //     data() {
+    //         // return只允许当前页面使用
+    //         return {
+    //             isCollapse: false,
+    //             selectUrlclassTree:[],
+    //         };
+    //     },
+    //     // computed:{
+    //     //     urlList
+    //     // },
+    //     // 相当于ready，初始化调用的方法，要调用methods中定义的方法
+    //     mounted(){
+    //         this.getSelectUrlclassTree()
+    //         // this.getUrlList({urlclassId:8})
+    //     },
+    //     methods: {
+    //         handleOpen(key, keyPath) {
+    //             console.log(key, keyPath);
+    //             // $('el-radio-button :label="false"').hide();
+    //         },
+    //         handleClose(key, keyPath) {
+    //             console.log(key, keyPath);
+    //         },
+    //         select(){
+    //         },
+    //         getSelectUrlclassTree(){
+    //             // this.axios.post('/logout',{
+    //             // }).then((res)=>{
+    //             //     this.aa=res.data.successText;
+    //             //     console.log(res.data)
+    //             // })
+    //             this.axios.get('/leftSubmenuList',{
+    //             }).then((res)=>{
+    //                 this.selectUrlclassTree=res.data.chindren;
+    //                 console.log(res.data.chindren)
+    //             })
+    //         },
+    //     },
+    //     // Container
+    // }
+    import { defineComponent, ref,onMounted } from 'vue'
+    import { get } from '../utils/request'
+    import {
+        Location,
+        Document,
+        Menu as IconMenu,
+        Setting,
+    } from '@element-plus/icons'
+    const getSelectUrlclassTreeEffect = () => {
+        const selectUrlclassTree=ref([])
+        const getSelectUrlclassTree=async()=>{
+            // this.axios.post('/logout',{
+            // }).then((res)=>{
+            //     this.aa=res.data.successText;
+            //     console.log(res.data)
+            // })
+            // this.axios.get('/leftSubmenuList',{
+            // }).then((res)=>{
+            //     this.selectUrlclassTree=res.data.chindren;
+            //     console.log(res.data.chindren)
+            // })
+            const result =await get('/leftSubmenuList')
+            console.log('103:',result.chindren)
+            selectUrlclassTree.value = result.chindren
+        }
+        return{selectUrlclassTree,getSelectUrlclassTree}
+    }
+    export default defineComponent({
         name:'index',
-        components:{
-            // NavFooter 
+        // components:{
+        //     // NavFooter 
+        //     UrlList
+        // },
+        components: {
+            Location,
+            Document,
+            Setting,
+            IconMenu,
             UrlList
         },
-        // 定义局部的，防止篡改
-        data() {
-            // return只允许当前页面使用
+        setup() {
+            const isCollapse = ref(false)
+            const handleOpen = (key, keyPath) => {
+                console.log(key, keyPath)
+            }
+            const handleClose = (key, keyPath) => {
+                console.log(key, keyPath)
+            }
+            const select=()=>{
+            }
+            const {selectUrlclassTree,getSelectUrlclassTree}=getSelectUrlclassTreeEffect()
+            const num=ref(3)
+            getSelectUrlclassTree()
+            // onMounted(() => {
+            //     // getSelectUrlclassTree()
+            //     num=ref(2)
+            //     console.log('Component is mounted!')
+            // })
+            // watch(
+            //     () => props.menuChildrens,
+            //     () => {
+            //         showDom.value = false;+
+            //         // 在dom更新之后进行渲染
+            //         nextTick().then(function () {
+            //         showDom.value = true;
+            //         });
+            //     }
+            // );
             return {
-                isCollapse: false,
-                selectUrlclassTree:[],
-            };
+                // isCollapse,
+                handleOpen,
+                handleClose,
+                select,
+                getSelectUrlclassTree,
+                isCollapse,
+                selectUrlclassTree,
+                num
+            }
         },
-        // computed:{
-        //     urlList
-        // },
-        // 相当于ready，初始化调用的方法，要调用methods中定义的方法
-        mounted(){
-            this.getSelectUrlclassTree()
-            // this.getUrlList({urlclassId:8})
-        },
-        methods: {
-            handleOpen(key, keyPath) {
-                console.log(key, keyPath);
-                // $('el-radio-button :label="false"').hide();
-            },
-            handleClose(key, keyPath) {
-                console.log(key, keyPath);
-            },
-            select(){
-            },
-            getSelectUrlclassTree(){
-                // this.axios.post('/logout',{
-                // }).then((res)=>{
-                //     this.aa=res.data.successText;
-                //     console.log(res.data)
-                // })
-                this.axios.get('/leftSubmenuList',{
-                }).then((res)=>{
-                    this.selectUrlclassTree=res.data.chindren;
-                    console.log(res.data.chindren)
-                })
-            },
-        },
-        // Container
-    }
+    })
 </script>

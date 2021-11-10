@@ -1,6 +1,6 @@
 <template>
     <div>
-        <!-- <nav-header></nav-header> -->
+        <nav-header></nav-header>
         <div class="container">
             <router-view></router-view>
             <!-- <el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop> -->

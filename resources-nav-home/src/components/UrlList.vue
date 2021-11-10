@@ -1,14 +1,54 @@
 <template>
     <el-main>
-        <p class='count1'>{{count}}</p>
-        <div v-for="item in urlList" :key="item.urlclassId">
-            {{item.name}}
-        </div>
         <!-- PageHeader 页头 -->
         <el-page-header @back="goBack" content="所有资源"></el-page-header>
         <!-- 卡片内容 -->
         
-
+        <el-row>
+            <el-col  :span="24">
+                <!-- 卡片内容 -->
+                <el-row :gutter="20">
+                    <template v-if="urlList.length > 0">
+                        <el-col :span="6" v-for="item in urlList" :key="item.urlclassId">
+                            <!-- 卡片；@click.native 的作用：给组件绑定原生事件 -->
+                                <!-- @click.native="openUrl(item.url)" -->
+                            <el-card class="box-card url-box-card urlList" shadow="hover">
+                                <!-- <div slot="header" class="clearfix" @click="openUrl(item.url)" > -->
+                                    <template #header>
+                                        <div class="card-header">
+                                            <div class="text item">
+                                                <span>{{item.name}}</span>
+                                            </div>
+                                            <div>
+                                                {{item.content}}
+                                            </div>
+                                            <!-- <el-button class="button" type="text">Operation button</el-button> -->
+                                        </div>
+                                    </template>
+                                    <!-- <div class="text item">
+                                        <span>{{item.name}}</span>
+                                    </div> -->
+                                    <!-- {{item.content}} -->
+                                    <!-- <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button> -->
+                                <!-- </div> -->
+                                <div class="text item">
+                                    <!-- {{item.content}} -->
+                                    <el-button-group>
+                                        <el-button icon="el-icon-delete" @click="deleteUrl(item.urlId)"></el-button>
+                                        <!-- <el-button icon="el-icon-edit" @click="updateUrl(item)"></el-button> -->
+                                        <el-button icon="el-icon-edit" @click="dialogFormVisible = true,selectUrlId=item.urlId"></el-button>
+                                    </el-button-group>
+                                </div>
+                            </el-card>
+                        </el-col>
+                    </template>
+                </el-row>
+                <!-- edit对话框 -->
+                <!-- <el-dialog title="编辑资源" :visible.sync="dialogFormVisible" @close="close">
+                    <url-form getType='updateResource' :selectUrlId="selectUrlId" @refreshurllist="urlAllList" ref="urlform"></url-form>
+                </el-dialog> -->
+            </el-col>
+        </el-row>
         <nav-footer></nav-footer>
     </el-main>
 </template>
@@ -52,7 +92,7 @@
 }
 .el-button-group{
     width: 100% !important;
-    display: flex;
+    display: flex !important;
     background-color: #DCDFE6;
 }
 .el-button-group .el-button{

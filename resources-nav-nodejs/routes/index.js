@@ -58,7 +58,7 @@ router.get('/leftSubmenuList', async function(req, res, next) {
     }
     var selectUrlclassTree=translateData(JSON.parse(selectUrlclassList), 'urlclassId', 'parentId', 'chindren')
     
-    // console.log('selectUrlclassList2:',translateData(JSON.parse(selectUrlclassList), 'urlclassId', 'parentId', 'chindren'))
+    // console.log('selectUrlclassList2:',translateData(JSON.parse(selectUrlclassList), 'urlclassId', 'parentId', 'chindren')[0].chindren)
     res.json(selectUrlclassTree[0]);
   }catch(err){
     console.error('/error',err);
